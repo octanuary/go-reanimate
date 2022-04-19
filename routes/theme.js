@@ -40,4 +40,5 @@ router.post("/goapi/getTheme", (req, res) => {
 	addToZip(zip, "theme.xml", fs.readFileSync(`${__dirname}/../static/store/3a981f5cb2739137/${req.body.themeId}/theme.xml`));
  	zip.zip().then(buffer => res.end(buffer));
 });
+
 module.exports = router;
