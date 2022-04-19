@@ -1,0 +1,189 @@
+[
+	{
+		"name": "Business Friendly",
+		"id": "business",
+		"cc_theme_id": "business",
+		"tags": "char_creator lipsync starters ext_lib qvm",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "Stickly Business",
+		"id": "sticklybiz",
+		"cc_theme_id": "sticklybiz",
+		"tags": "",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Common Craft",
+		"id": "commoncraft",
+		"cc_theme_id": "commoncraft",
+		"tags": "",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Comedy World",
+		"id": "custom",
+		"cc_theme_id": "family",
+		"tags": "lipsync qvm char_creator",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "Lil' Peepz",
+		"id": "action",
+		"cc_theme_id": "cc2",
+		"tags": "lipsync qvm char_creator",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "White Houserz",
+		"id": "politics2",
+		"cc_theme_id": "politics2",
+		"tags": "lipsync qvm",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": false
+		}
+	},
+	{
+		"name": "Business Models",
+		"id": "bizmodels",
+		"cc_theme_id": "bizmodels",
+		"tags": "",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Cartoon Classics",
+		"id": "retro",
+		"cc_theme_id": "retro",
+		"tags": "",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Space Citizen",
+		"id": "spacecitizen",
+		"cc_theme_id": "spacecitizen",
+		"tags": "lipsync",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Anime",
+		"id": "anime",
+		"cc_theme_id": "anime",
+		"tags": "char_creator lipsync qvm",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "Ninja Anime",
+		"id": "ninjaanime",
+		"cc_theme_id": "ninjaanime",
+		"tags": "char_creator lipsync",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": true
+		}
+	},
+	{
+		"name": "Space Peepz",
+		"id": "space",
+		"cc_theme_id": "cc2",
+		"tags": "lipsync qvm",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": false
+		}
+	},
+	{
+		"name": "Chibi Peepz",
+		"id": "chibi",
+		"cc_theme_id": "chibi",
+		"tags": "lipsync qvm char_creator",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "Chibi Ninjas",
+		"id": "ninja",
+		"cc_theme_id": "ninja",
+		"tags": "lipsync qvm char_creator",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": true
+		}
+	},
+	{
+		"name": "Lil' Petz World",
+		"id": "animal",
+		"cc_theme_id": "cc2",
+		"tags": "lipsync qvm",
+		"features": {
+			"vm": true,
+			"template": true,
+			"cc": false
+		}
+	},
+	{
+		"name": "Stick Figure",
+		"id": "stick",
+		"cc_theme_id": "stick",
+		"tags": "",
+		"features": {
+			"vm": true,
+			"template": false,
+			"cc": false
+		}
+	},
+	{
+		"name": "Wildlife",
+		"id": "wildlife",
+		"cc_theme_id": "wildlife",
+		"tags": "lipsync qvm",
+		"features": {
+			"vm": false,
+			"template": true,
+			"cc": false
+		}
+	}
+]

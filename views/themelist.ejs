@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="theme-light" lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta property="og:site_name" content="GoAnimate">
+		<title>Video Maker | GoAnimate</title>
+		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
+
+		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/videomaker.css" rel="stylesheet" type="text/css">
+		
+		<script src="/static/go/js/go2.js"></script>
+		<!-- JS LIBRARIES -->
+		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
+		<script src="/static/go/js/libs/Gettext.js"></script>
+		<script src="/static/go/po/goserver_js-en_US.js"></script>
+		<script> // set up gettext
+			var I18N_LANG = "en_US";
+			var GT = new Gettext({
+				"locale_data": json_locale_data
+			});
+		</script>
+	</head>
+	<body>
+		<%- include("./includes/header", {}); %>
+
+		<div class="vm-bf">
+			<div class="container">
+				<h1>Create Animated Videos. Easily.</h1>
+				<p class="subtitle"><strong>Everything you need in a wide range of styles</strong></p>
+
+				<div class="vm-bf-content">
+					<p>Our themes are carefully produced sets of matching assets, such as characters, actions,
+						backgrounds, props and scene starters - each with a unique visual style. Our flagship theme,
+						Business Friendly, offers the widest selection, providing hundreds of actions across
+						numerous occupations and activities, with more being added all the time.</p>
+
+					<div class="actions">
+						<button class="btn btn-banner btn-orange" type="button" data-action="upsell"
+							data-hook="business-style" data-hook-button-text="Preview Video Maker"
+							data-callback="showSignup();" title=""
+							data-original-title="Business Friendly Video Maker">
+							Make a Video <small>Sign up to try</small>
+						</button>
+						<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
+							data-hook-button-text="Preview Template" data-callback="showSignup();" title=""
+							data-original-title="Business Friendly Template"><i class="i-qvm-large"></i></button>
+						<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
+							data-hook-button-text="Preview Character Creator" data-callback="showSignup();" title=""
+							data-original-title="Business Friendly Character Creator"><i
+								class="i-cc-large"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<div class="container themes-section">
+				<div class="header">
+					<div class="header-content">
+						<h2>Select A Theme</h2>
+						Select a theme based on its visual style, or use the filter to choose based on features.
+					</div>
+					<div class="filter-dropdown-container">
+						<div class="filter-dropdown dropdown">
+							<a class="filter-dropdown-toggle" data-toggle="dropdown" href="#">Filter Themes <span
+									class="caret"></span></a>
+							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+								<li>
+									<a class="filter-item" href="#" data-filter="lipsync">
+										<div class="filter-icon"><img
+												src="https://web.archive.org/web/20131103165020im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/filter_lip.png"
+												alt=""></div>
+										<div class="filter-body">
+											<div class="filter-name"><strong>Lip-sync</strong></div>
+											<span class="filter-desc">Characters automatically lip-sync their dialog
+												when lines are assigned to them.</span>
+										</div>
+										<div class="filter-checkbox-container">
+											<span class="filter-checkbox"></span>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="filter-item" href="#" data-filter="ext_lib">
+										<div class="filter-icon"><img
+												src="https://web.archive.org/web/20131103165020im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/filter_library.png"
+												alt=""></div>
+										<div class="filter-body">
+											<div class="filter-name"><strong>Extensive Library</strong></div>
+											<span class="filter-desc">Collections of characters, backgrounds and props
+												corresponding to a wide variety of locations, occupations and
+												industries.</span>
+										</div>
+										<div class="filter-checkbox-container">
+											<span class="filter-checkbox"></span>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="filter-item" href="#" data-filter="starters">
+										<div class="filter-icon"><img
+												src="https://web.archive.org/web/20131103165020im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/filter_starter.png"
+												alt=""></div>
+										<div class="filter-body">
+											<div class="filter-name"><strong>Scene Starters</strong></div>
+											<span class="filter-desc">Pre-made sequences that help you get started (or
+												finished) quickly! You can also save your own frequently-used sequences
+												as starters.</span>
+										</div>
+										<div class="filter-checkbox-container">
+											<span class="filter-checkbox"></span>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="filter-item" href="#" data-filter="qvm">
+										<div class="filter-icon"><img
+												src="https://web.archive.org/web/20131103165020im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/filter_template.png"
+												alt=""></div>
+										<div class="filter-body">
+											<div class="filter-name"><strong>Template</strong></div>
+											<span class="filter-desc">Super-fast tool for creating simple, dialog-based
+												videos. Be finished in minutes!</span>
+										</div>
+										<div class="filter-checkbox-container">
+											<span class="filter-checkbox"></span>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="filter-item" href="#" data-filter="char_creator">
+										<div class="filter-icon"><img
+												src="https://web.archive.org/web/20131103165020im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/filter_cc.png"
+												alt=""></div>
+										<div class="filter-body">
+											<div class="filter-name"><strong>Character Creator</strong></div>
+											<span class="filter-desc">Customize your characters! Adapt existing
+												characters to meet your needs or build completely from scratch.</span>
+										</div>
+										<div class="filter-checkbox-container">
+											<span class="filter-checkbox"></span>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="filter-results" id="filter-results" style="display:none">
+					<b class="filter-count">0</b> matching themes based on filters:
+					<ul class="filter-crumb-list"></ul>
+					<a class="filter-crumb-list-clear" href="#">Clear all</a>
+				</div>
+
+				<div class="themes clearfix" id="themes">
+					<%- themelist.map(theme => `<div class="theme" id="thm-${theme.id}" data-tags="${theme.tags}">
+						<div class="theme-cell">
+							<div class="theme-cover launch">
+								<img src="/static/go/img/videomaker/themes/${theme.id}.jpg" alt="${theme.name}"/>
+							</div>
+							<div class="theme-meat">
+								<h3>${theme.name}</h3>
+								<div class="apps">
+									${(theme.features.vm) ? `<a class="btn btn-orange" href="/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
+									${(theme.features.template) ? `<a class="btn btn-icon" href="/videomaker/lite/${theme.id}" data-original-title="Template"><i class="i-qvm"></i></a>` : ""}
+									${(theme.features.cc) ? `<a class="btn btn-icon" href="/charactercreator/${theme.id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
+								</div>
+							</div>
+						</div>
+					</div>`).join(""); %>
+				</div>
+			</div>
+
+
+			<script>
+				$(function () {
+					$('.theme-cell').each(function () {
+						var $button = $('.apps > .btn:first-child', this);
+						var launch, url;
+
+						$('.theme-cover', this).click(function (e) {
+							e.preventDefault();
+
+							if ($button.attr('href') != undefined) {
+								window.location.href = $button.attr('href');
+							} else {
+								$button.trigger('click');
+							}
+						}).addClass('launch');
+					});
+
+					$('.vm-bf-content .btn, .themes .apps > .btn').tooltip();
+				});
+
+				var tagNames = {
+					"lipsync": "Lip-sync",
+					"ext_lib": "Extensive Library",
+					"starters": "Scene Starters",
+					"qvm": "Template",
+					"char_creator": "Character Creator"
+				};
+
+			</script>
+			<script
+				src="https://web.archive.org/web/20131103165020js_/http://lightspeed.goanimate.com/static/446/go/js/video_maker.js">
+			</script>
+
+		</main>
+		<%- include("./includes/footer", {}); %>
+		<!-- END OF PAGE STRUCTURE -->
+
+
+		<script>
+			function locStorage(action, key, value) {
+				var result;
+				if (typeof (localStorage) == 'undefined') {
+					// localStorge not supported
+				} else {
+					try {
+						switch (action) {
+							case 'setItem':
+								localStorage.setItem(key, value);
+								break;
+							case 'getItem':
+								result = localStorage.getItem(key);
+								break;
+							case 'removeItem':
+								localStorage.removeItem(key);
+								break;
+						}
+						return result;
+					} catch (e) {
+						if (e == QUOTA_EXCEEDED_ERR) {
+							//data wasn't successfully saved due to quota exceed so throw an error
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

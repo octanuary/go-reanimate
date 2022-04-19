@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="theme-light" lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta property="og:site_name" content="GoAnimate">
+		<title>Sign Up to GoAnimate</title>
+		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
+
+		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/signup.css" rel="stylesheet" type="text/css">
+
+		<script src="/static/go/js/go2.js"></script>
+		<!-- JS LIBRARIES -->
+		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
+		<script src="/static/go/js/libs/Gettext.js"></script>
+		<script src="/static/go/po/goserver_js-en_US.js"></script>
+		<script> // set up gettext
+			var I18N_LANG = "en_US";
+			var GT = new Gettext({
+				"locale_data": json_locale_data
+			});
+		</script>
+	</head>
+	<body>
+		<%- include("./includes/header", {}); %>
+
+		<section class="page-breadcrumb">
+			<div class="container flex-container">
+				<a href="/">Home</a>
+				<div class="divider">></div>
+				<a href="/signup">Sign Up</a>
+			</div>
+		</section>
+
+		<main>
+			<div class="container flex-container centered">
+				<div class="floating-form">
+					<div class="form-header">
+						<h1>Sign Up</h1>
+					</div>
+					<form class="signup-form" id="signup-form" action="/api/v1/user/signup" method="post" novalidate="">
+						<div class="form-error-message" id="signup-form-message"></div>
+
+						<div class="form-row form-input">
+							<input id="signup-email" type="email" name="email" placeholder="EMAIL ADDRESS" value="">
+						</div>
+						<div class="form-row form-input">
+							<input id="signup-username" type="text" name="username" placeholder="DISPLAY NAME" value=""
+								maxlength="50">
+						</div>
+						<div class="form-row form-input">
+							<input id="signup-password" type="password" name="password1" placeholder="PASSWORD" value=""
+								autocomplete="off">
+						</div>
+						<div class="form-row form-input">
+							<input id="signup-confirm-password" type="password" name="password2"
+								placeholder="CONFIRM PASSWORD" value="" autocomplete="off">
+						</div>
+
+						<div class="form-row">
+							By signing up you agree to our <a href="/termsofuse" target="_blank">Terms of Use</a>
+							and our <a href="/privacy" target="_blank">Privacy Policy</a>.
+							<input type="hidden" name="termsofuse" value="on">
+						</div>
+
+						<div class="form-row">
+							<button class="btn btn-orange btn-xlarge" id="btn-signup" type="submit">SIGN UP</button>
+
+							<input type="hidden" name="regsignup" value="1">
+							<input type="hidden" name="action" value="signup">
+							<input type="hidden" name="returnto" value="">
+						</div>
+
+						<div class="form-row">
+							Registered? <a href="/login">Login here</a>.
+						</div>
+					</form>
+				</div>
+				<div class="reasons-to-signup">
+					<h2>Why Sign Up?</h2>
+					<ul>
+						<li>
+							<img src="/static/go/img/signup/make-videos.png" alt="Make videos" />
+							<div>
+								<h3>Create your own videos</h3>
+								<p>Create a video in a few clicks with the Quick Video Maker, or use the Full Video
+									Maker.</p>
+							</div>
+						</li>
+						<li>
+							<img src="/static/go/img/signup/custom-page.png" alt="Custom page" />
+							<div>
+								<h3>Customize your page</h3>
+								<p>Customize your page to the max with custom CSS.</p>
+							</div>
+						</li>
+						<li>
+							<img src="/static/go/img/signup/get-fans.png" alt="Get fans" />
+							<div>
+								<h3>Get GoBucks, views, and fans</h3>
+								<p>Share your content and earn GoBucks for your views, and get fans.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<%- include("./includes/footer", {}); %>
+
+		<script>
+			(function () {
+				var processing = false;
+				var captcha_displayed = false;
+
+				function validateSignUp() {
+					var email = $('#signup-email'),
+						email_val = $.trim(email.val()),
+						name = $('#signup-username'),
+						name_val = $.trim(name.val()),
+						password = $('#signup-password'),
+						confirm_password = $('#signup-confirm-password');
+
+					formErrorMessage('');
+
+					if (!email_val) {
+						email.focus();
+						formErrorMessage('Email address required');
+						return false;
+					}
+					if (!email_val.match(
+							/^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i
+						)) {
+						email.focus();
+						formErrorMessage('Invalid email address');
+						return false;
+					}
+					if (!name_val || name_val == name.attr('placeholder')) {
+						name.focus();
+						formErrorMessage('Please enter your Display Name');
+						return false;
+					}
+					if (!password.val()) {
+						password.focus();
+						formErrorMessage('Password required');
+						return false;
+					}
+					if (password.val().length <= 3) {
+						password.focus();
+						formErrorMessage('Password must be longer than 3 characters');
+						return false;
+					}
+					if (!confirm_password.val()) {
+						confirm_password.focus();
+						formErrorMessage('Confirm password required');
+						return false;
+					}
+					if (password.val() != confirm_password.val()) {
+						confirm_password.val('').focus().addClass('error');
+						formErrorMessage('Password and Confirm Password do not match');
+						return false;
+					}
+
+					return true;
+				}
+
+				function formErrorMessage(message) {
+					$('#signup-form-message').text(message);
+				}
+
+				function submitSignUp() {
+					if (!validateSignUp()) {
+						return;
+					}
+					if (processing) {
+						return;
+					}
+
+					processing = true;
+
+					var buttonText = $('#btn-signup').text();
+					$('#btn-signup').text('Please wait...');
+					$.post("/api/v1/user/signup", $('#signup-form').serialize(), function (response) {
+						parseResponse(response);
+
+						if (responseArray.code == 0) {
+							$(document).trigger('user.signup');
+						} else {
+							processing = false;
+							formErrorMessage(responseArray.json.error);
+							$('#btn-signup').text(buttonText);
+						}
+					});
+				}
+
+				function fillDisplayName(email) {
+					var name = $('#signup-username');
+
+					var i = email.indexOf('@');
+					if (i > 0) {
+						name.val(email.substring(0, i)).change();
+					}
+				}
+
+				$('#signup-email').bind('blur', function (e) {
+					fillDisplayName($(this).val());
+				});
+				$('#signup-form').submit(function (e) {
+					e.preventDefault();
+					submitSignUp();
+				});
+
+				$.fn.formInput = function () {
+					return this.each(function () {
+						var element = $(this),
+							input = element.find('input');
+
+						if (!input.length) {
+							element.toggleClass('on', true);
+							return;
+						}
+
+						element.toggleClass('on', input.val() != '');
+
+						input.on('focus', function () {
+							element.toggleClass('on', true);
+						}).on('blur change onPropertyChange', function () {
+							element.toggleClass('on', (input.val() != ''));
+						});
+					});
+				};
+
+				$('.form-input').formInput();
+
+				$('#signup-email').focus();
+
+			})();
+		</script>
+		<script>
+			function locStorage(action, key, value) {
+				var result;
+				if (typeof (localStorage) == 'undefined') {
+					// localStorage not supported
+				} else {
+					try {
+						switch (action) {
+							case 'setItem':
+								localStorage.setItem(key, value);
+								break;
+							case 'getItem':
+								result = localStorage.getItem(key);
+								break;
+							case 'removeItem':
+								localStorage.removeItem(key);
+								break;
+						}
+						return result;
+					} catch (e) {
+						if (e == QUOTA_EXCEEDED_ERR) {
+							//data wasn't successfully saved due to quota exceed so throw an error
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

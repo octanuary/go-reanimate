@@ -1,0 +1,179 @@
+main {
+	min-height: 700px;
+}
+
+/**
+form
+**/
+.floating-form {
+	// style
+	background-color: var(--background-secondary);
+	box-shadow: var(--large-shadow);
+	border-radius: 5px;
+	animation: {
+		duration: 0.25s;
+		name: fade-drop-high;
+	};
+	// layout
+	position: relative;
+	width: 400px;
+	z-index: 3;
+
+	.form-header {
+		background: #136c79;
+		margin: 0;
+		border-radius: 5px 5px 0 0;
+		padding: 10px 4px;
+
+		h1 {
+			margin: 0;
+			color: #fff;
+			font-size: 24px;
+			line-height: 36px;
+			text-align: center;
+		}
+	}
+	form {
+		margin: 0;
+		padding: 10px 40px 30px;
+		text-align: center
+	}
+}
+
+.form-row {
+	margin-bottom: 18px
+}
+
+.form-row:last-child {
+	margin-bottom: 0
+}
+
+.form-input input[type="text"],
+.form-input input[type="password"],
+.form-input input[type="email"] {
+	// style
+	background-color: var(--input-bg);
+	border: 1px solid var(--border-primary);
+	box-shadow: var(--small-shadow);
+	color: var(--color-primary);
+	border-radius: 3px;
+	transition: .15s ease;
+	// layout
+	font-size: 16px;
+	text-align: left;
+	margin: 0;
+	padding: 8px 15px;
+	width: 320px;
+}
+// focused inputs
+.form-input.on input {
+    border-color: #6d6d7d;
+}
+.form-input input[type="text"]:focus,
+.form-input input[type="password"]:focus,
+.form-input input[type="email"]:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.form-error-message {
+	color: #f00;
+	font-weight: 600;
+	margin-bottom: 10px
+}
+
+.fi {
+	background: transparent url(../img/signup/icon_signup.png) no-repeat 0 0;
+	display: inline-block;
+	height: 0;
+	padding-top: 22px;
+	overflow: hidden;
+	width: 22px;
+	margin: 0 10px 0 0;
+	vertical-align: middle
+}
+
+.fi.email {
+	background-position: 0 -22px
+}
+
+.fi.username {
+	background-position: -22px -22px
+}
+
+.fi.password {
+	background-position: -44px -22px
+}
+
+.fi.confirm-password {
+	background-position: -66px -22px
+}
+
+.on .fi.email {
+	background-position: 0 0
+}
+
+.on .fi.username {
+	background-position: -22px 0
+}
+
+.on .fi.password {
+	background-position: -44px 0
+}
+
+.on .fi.confirm-password {
+	background-position: -66px 0
+}
+
+/**
+the "reasons to signup"
+**/
+.reasons-to-signup {
+	margin-left: 30px;
+
+	ul {
+		list-style: none;
+		padding: 0;
+
+		:nth-child(1) { animation-delay: 0s }
+		:nth-child(2) { animation-delay: 0.05s }
+		:nth-child(3) { animation-delay: 0.10s }
+
+		li {
+			animation: {
+				duration: 0.3s;
+				name: fade-drop-low;
+			};
+			display: flex;
+			margin-bottom: 10px;
+			max-width: 400px;
+
+			img { margin-right: 8px; height: 72px; width: 72px }
+			h3 {
+				font-size: 15px;
+				margin-top: 0;
+				margin-bottom: 10px;
+			}
+			p { margin-top: 0 }
+		}
+	}
+}
+
+
+
+
+@media(max-width:767px) {
+	.floating-form {
+		margin: 0 auto;
+		width: 80%;
+		
+		form {
+			padding: 20px 25px;
+			input { width: 100% !important }
+		}
+	}
+
+	.reasons-to-signup {
+		display: none;
+	}
+}

@@ -1,0 +1,145 @@
+@media(min-width:768px) and (max-width:991px) {
+	.site-header {
+		min-width: 0
+	}
+
+	.site-header>.site-header-inside {
+		width: auto;
+		padding: 0 16px
+	}
+
+	.site-footer {
+		min-width: 0
+	}
+
+	.site-footer>.container {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 0 16px
+	}
+
+	.site-footer-nav {
+		width: auto;
+		margin: 0 auto
+	}
+
+	.site-footer-nav .col {
+		width: 25%;
+		border: 0;
+		margin-bottom: 15px;
+		padding: 0
+	}
+}
+
+@media(max-width:767px) {
+	body {
+		min-width: 320px
+	}
+
+	.site-header {
+		min-width: 0
+	}
+
+	.site-header>.site-header-inside {
+		width: auto
+	}
+
+	.site-logo {
+		margin-left: 10px;
+		margin-right: 20px
+	}
+
+	.top-nav-toggle {
+		display: block
+	}
+
+	.top-nav {
+		float: none;
+		margin-top: 40px
+	}
+
+	.top-nav>li {
+		float: none;
+		border: 0;
+		width: 100%
+	}
+
+	.top-nav>.top-nav-vm-btn {
+		padding-bottom: 15px
+	}
+
+	.top-nav .open .dropdown-menu {
+		position: static;
+		float: none;
+		width: auto;
+		background-color: transparent;
+		box-shadow: none;
+		border: 0;
+		border-radius: 0;
+		margin: 0;
+		padding: 0
+	}
+
+	.top-nav>li>.dropdown-menu:before,
+	.top-nav>li>.dropdown-menu:after {
+		display: none
+	}
+
+	.top-nav .dropdown-menu li>a {
+		font-weight: 600;
+		padding: 10px 20px 10px 30px;
+		color: #666;
+		text-transform: uppercase
+	}
+
+	.dropdown-menu>li>a:hover,
+	.dropdown-menu>li>a:focus,
+	.dropdown-submenu:hover>a,
+	.dropdown-submenu:focus>a {
+		background: 0;
+		color: #42cadf
+	}
+
+	.site-footer {
+		padding: 30px 0;
+		min-width: 0
+	}
+
+	.site-footer>.container {
+		width: auto;
+		padding: 0 16px
+	}
+
+	.site-footer-nav {
+		width: 100%;
+		margin: 0
+	}
+
+	.site-footer-nav .col {
+		width: 100%;
+		border: 0;
+		margin-bottom: 10px;
+		padding: 0
+	}
+
+	.site-footer-nav li.dummy {
+		display: none
+	}
+
+	.site-footer-socials-container {
+		float: none
+	}
+
+	.site-footer-copyright {
+		float: none;
+		margin-top: 20px
+	}
+}
+
+@media(max-width:480px) {
+	.site-footer-nav .col {
+		text-align: center
+	}
+}

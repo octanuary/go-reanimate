@@ -1,0 +1,19 @@
+GoAnimate Animation Guide:
+------------------------
+
+GoAnimate:
+
+| Build:           | Status: | Date archived: | Domain:                             |
+|-----------------------------------------------------------------------------------|
+| 760-898          | Notes   | Unknown        | d3v4eglovri8yt.cloudfront.net       | # Ask someone who has it.
+| 66453a3ba2cc5e1b | Lost    | Unknown        | d3v4eglovri8yt.cloudfront.net       | # You could try searching GitHub.
+| 457, 459, 460    | Found   | 2010?          | lightspeed.domo.goanimate.com       |
+| 15               | Found   | 2011           | lightspeed.edplatform.goanimate.com |
+| 17               | Found   | 2012           | lightspeed.edplatform.goanimate.com |
+| 19, 24           | Found   | 2013           | lightspeed.edplatform.goanimate.com |
+| 25, 28           | Found   | 2014           | lightspeed.edplatform.goanimate.com |
+| 414827163ad4eb60 | Found   | 2016?          | d3v4eglovri8yt.cloudfront.net       |
+
+Vyond:
+
+| No Build         | Found   | 2018           | ga.vyond.com/static/animation       |
