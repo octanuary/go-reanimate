@@ -1,12 +1,12 @@
-const themelist = require("../themelist.json");
 const express = require("express");
 const router = express.Router();
-const nodezip = require("node-zip");
-const addToZip = require("../helpers/zip");
 const fs = require("fs");
+const nodezip = require("node-zip");
+const themelist = require("../themelist.json");
+const addToZip = require("../helpers/addToZip");
 
 /**
- * frontend
+ * api
  */
 router.post("/goapi/getThemelist", (req, res) => {
 	if (!req.user) { // check if the user is signed in
@@ -19,7 +19,7 @@ router.post("/goapi/getThemelist", (req, res) => {
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 		<list version="1.0">
 			<fvm_meta theme_code="" is_biz="0" />
-			${themelist.map(v => `<theme id="${v.id}" name="${v.name}" thumb="" cc_theme_id="${v.cc_theme_id}" enable="${(v.features.vm == true) ? "Y": "N"}" />`).join("\n")}
+			${themelist.map(v => (v.features.vm) ? `<theme id="${v.id}" name="${v.name}" thumb="" cc_theme_id="${v.cc_theme_id}" enable="Y"}"/>` : "").join("\n    ")}
 			<word></word>
 			<whiteword />
 			<excludeAssetIDs />

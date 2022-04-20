@@ -1,3 +1,6 @@
+/**
+ * this has stuff like user auth, extra functions, etc.
+ */
 const UserModel = require("../models/user");
 
 module.exports = async function (req, res, next) {
@@ -11,7 +14,8 @@ module.exports = async function (req, res, next) {
 		}
 		return req;
 	};
-	try {
+	try { // user authentication
+		// it's in a try catch because without it req.user is undefined
 		const User = new UserModel();
 		const userData = await User.getUserByToken(req.cookies.utk);
 		req.user = userData;
