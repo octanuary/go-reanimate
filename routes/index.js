@@ -14,7 +14,7 @@ router.use("/", require("./users"));
  * general routes
  */
 router.get("/unsupported-browser", (req, res) => {
-	res.render("unsupported-browser", {});
+	res.render("unsupported-browser", { user: req.user });
 });
 router.get("/crossdomain.xml", (req, res) => res.end("<cross-domain-policy><site-control permitted-cross-domain-policies=\"by-content-type\"/></cross-domain-policy>"))
 router.get("/goapi/getAssetTags", (req, res) => {

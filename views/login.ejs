@@ -12,6 +12,7 @@
 		<link href="/static/go/css/signup.css" rel="stylesheet" type="text/css">
 
 		<script src="/static/go/js/go2.js"></script>
+		<script src="/static/go/js/site.js"></script>
 		<!-- JS LIBRARIES -->
 		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/static/go/js/libs/Gettext.js"></script>
@@ -24,7 +25,7 @@
 		</script>
 	</head>
 	<body>
-		<%- include("./includes/header", {}); %>
+		<%- include("./includes/header", { user: user }); %>
 
 		<section class="page-breadcrumb">
 			<div class="container flex-container">

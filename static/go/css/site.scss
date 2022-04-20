@@ -301,7 +301,7 @@ header-notication.on span {
 dropdowns
 **/
 .dropdown-menu {
-    position: fixed;
+    position: absolute;
     z-index: 1000;
     display: none;
     float: left;

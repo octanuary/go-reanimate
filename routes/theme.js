@@ -19,7 +19,7 @@ router.post("/goapi/getThemelist", (req, res) => {
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 		<list version="1.0">
 			<fvm_meta theme_code="" is_biz="0" />
-			${themelist.map(v => (v.features.vm) ? `<theme id="${v.id}" name="${v.name}" thumb="" cc_theme_id="${v.cc_theme_id}" enable="Y"}"/>` : "").join("\n    ")}
+			${themelist.map(v => (v.features.vm) ? `<theme id="${v.id}" name="${v.name}" thumb="" cc_theme_id="${v.cc_theme_id}" enable="Y"/>` : "").join("")}
 			<word></word>
 			<whiteword />
 			<excludeAssetIDs />

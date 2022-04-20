@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 const mysql = require("mysql");
 const util = require("../helpers/util");
 
-module.exports = class {
-	constructor(method, data) {
-	}
+module.exports = {
 	create(email, username, password) {
 		const id = util.randStr();
 		const token = jwt.sign({ email: email, password: password }, SECRET);
@@ -24,7 +22,7 @@ module.exports = class {
 		});
 		connection.end();
 		return token;
-	}
+	},
 	getUserByToken(token) {
 		return new Promise((resolve, rej) => {
 			// verify the token
@@ -55,6 +53,25 @@ module.exports = class {
 				});
 				connection.end();
 			});
+		})
+	},
+	getUserById(id) {
+		return new Promise((resolve, rej) => {
+			const connection = mysql.createConnection({
+				host: process.env.SQL_HOST,
+				user: process.env.SQL_USER,
+				password: process.env.SQL_PASS,
+				database: process.env.SQL_DB
+			});
+			const stmt = "SELECT * FROM user WHERE id = ?";
+			// select the user data
+			connection.query(stmt, [id], (err, res, fields) => {
+				if (err) rej();
+				if (res.length == 0) rej();
+
+				resolve(res[0]);
+			});
+			connection.end();
 		})
 	}
 }

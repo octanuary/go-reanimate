@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="theme-light" lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta property="og:site_name" content="GoAnimate">
+		<title><%= uinfo.username %> on GoAnimate</title>
+		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
+
+		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/signup.css" rel="stylesheet" type="text/css">
+
+		<script src="/static/go/js/go2.js"></script>
+		<!-- JS LIBRARIES -->
+		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
+		<script src="/static/go/js/libs/Gettext.js"></script>
+		<script src="/static/go/po/goserver_js-en_US.js"></script>
+		<script> // set up gettext
+			var I18N_LANG = "en_US";
+			var GT = new Gettext({
+				"locale_data": json_locale_data
+			});
+		</script>
+	</head>
+	<body>
+		<%- include("./includes/header", { user: user }); %>
+
+		<section class="page-breadcrumb">
+			<div class="container flex-container">
+				<a href="/">Home</a>
+				<div class="divider">></div>
+				<a href="/user">Users</a>
+				<div class="divider">></div>
+				<a href="/user/<%= uinfo.id %>"><%= uinfo.username %></a>
+			</div>
+		</section>
+
+		<div class="profile-main">
+			<div class="container">
+				<img class="portrait" src="http://web.archive.org/web/20141229235831im_/http://s3.amazonaws.com/fs.goanimate.com/files/thumbnails/asset/1324/1057324/192309532.jpg" alt="">
+		
+				<div class="profile-main-content">
+					<h1><a href="/user/<%= uinfo.id %>" title="<%= uinfo.username %>"><%= uinfo.username %></a> </h1>
+		
+					<div class="views"><i class="stat-view"></i> 43,671</div>
+					<div class="joined">Joined: 29 Feb 3097</div>
+		
+					<ul class="profile-main-nav">
+						<li><a href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
+						<li><a href="/user/<%= uinfo.id %>/favorites"><span class="icon fav"></span> <span class="num">572</span> Favorites</a></li>
+						<li><a href="/user/<%= uinfo.id %>/followers"><span class="icon follower"></span> <span class="num">2,555</span> Followers</a></li>
+						<li><a href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num">655</span> Following</a></li>
+					</ul>
+		
+					<div class="bio"><%= uinfo.bio %></div>
+		
+					<div class="profile-main-actions">
+						Share this page:&nbsp;
+						<a href="#" onclick="fbShare(); return false;"><i class="ico-facebook"></i></a>&nbsp;
+						<a target="_blank" href="/shareUser/twitter<%= uinfo.id %>" onclick="_gaq.push(['_trackPageview', '/pageTracker/share/twitter/userhtml']);"><i class="ico-twitter"></i></a>
+					</div>
+		
+		
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<div class="container flex-container centered">
+
+			</div>
+		</main>
+
+		<%- include("./includes/footer", {}); %>
+
+		<script>
+			(function () {
+			})();
+		</script>
+		<script>
+			function locStorage(action, key, value) {
+				var result;
+				if (typeof (localStorage) == 'undefined') {
+					// localStorage not supported
+				} else {
+					try {
+						switch (action) {
+							case 'setItem':
+								localStorage.setItem(key, value);
+								break;
+							case 'getItem':
+								result = localStorage.getItem(key);
+								break;
+							case 'removeItem':
+								localStorage.removeItem(key);
+								break;
+						}
+						return result;
+					} catch (e) {
+						if (e == QUOTA_EXCEEDED_ERR) {
+							//data wasn't successfully saved due to quota exceed so throw an error
+						}
+					}
+				}
+			}
+		</script>
+
+<script src="/static/go/js/site.js"></script>
+	</body>
+</html>

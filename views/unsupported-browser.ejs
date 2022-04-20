@@ -11,12 +11,7 @@
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
-		<link
-			href="http://web.archive.org/web/20140617030404cs_/https://d3v4eglovri8yt.cloudfront.net/static/044d4e36d0af524b/go/css/overlay.css"
-			rel="stylesheet" type="text/css">
-		<link
-			href="http://web.archive.org/web/20140617030404cs_/https://d3v4eglovri8yt.cloudfront.net/static/044d4e36d0af524b/go/css/site_responsive.css"
-			rel="stylesheet" type="text/css">
+		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
 
 
 		<script>
@@ -25,7 +20,7 @@
 				user_cookie_name = "u_info";
 		</script>
 
-		<script src="/static/go/js/jquery/jquery-3.6.0.min.js"></script>
+		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
 
 
 
@@ -60,11 +55,7 @@
 	</head>
 
 	<body>
-		<header>
-			<a class="site-logo" href="/" title="GoAnimate">
-				<img alt="Make a Video Online with GoAnimate.com" src="/static/go/img/business_video/home/logo.png">
-			</a>
-		</header>
+		<%- include("./includes/header", { user: user }); %>
 
 		<main>
 			<h1>You are using an unsupported browser.</h1>
@@ -79,4 +70,6 @@
 
 		<div id="page-darken"></div>
 	</body>
+
+	<script src="/static/go/js/site.js"></script>
 </html>
