@@ -6,14 +6,15 @@ const router = express.Router();
  * frontend
  */
 // choose a theme page
-router.get("/videomaker", (req, res) => {
+router.get("/themelist", (req, res) => {
 	if (!req.user) { // check if the user is signed in
 		res.redirect("/login").end();
 		return;
 	}
 
- 	res.render("themelist", { themelist: themelist });
+ 	res.render("themelist", { themelist: themelist, user: req.user });
 });
+
 // full videomaker
 router.get("/videomaker/full/:tId?/:mId?", (req, res) => {
 	if (!req.user) { // check if the user is signed in

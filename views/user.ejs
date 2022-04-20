@@ -9,7 +9,7 @@
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
-		<link href="/static/go/css/signup.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/user.css" rel="stylesheet" type="text/css">
 
 		<script src="/static/go/js/go2.js"></script>
 		<!-- JS LIBRARIES -->
@@ -38,7 +38,7 @@
 
 		<div class="profile-main">
 			<div class="container">
-				<img class="portrait" src="http://web.archive.org/web/20141229235831im_/http://s3.amazonaws.com/fs.goanimate.com/files/thumbnails/asset/1324/1057324/192309532.jpg" alt="">
+				<img class="portrait" src="/files/user/<%= uinfo.id %>/picture" alt="">
 		
 				<div class="profile-main-content">
 					<h1><a href="/user/<%= uinfo.id %>" title="<%= uinfo.username %>"><%= uinfo.username %></a> </h1>
@@ -57,7 +57,6 @@
 		
 					<div class="profile-main-actions">
 						Share this page:&nbsp;
-						<a href="#" onclick="fbShare(); return false;"><i class="ico-facebook"></i></a>&nbsp;
 						<a target="_blank" href="/shareUser/twitter<%= uinfo.id %>" onclick="_gaq.push(['_trackPageview', '/pageTracker/share/twitter/userhtml']);"><i class="ico-twitter"></i></a>
 					</div>
 		

@@ -158,7 +158,6 @@ header {
 	z-index: 20;
 
 	.site-logo {
-		line-height: 40px;
 		margin: {
 			top: 5px;
 			right: 30px;
@@ -245,12 +244,12 @@ header {
 	}
 }
 
-header-notications {
+.header-notifications {
 	margin-top: 8px;
 	float: left
 }
 
-header-notication {
+.header-notification {
 	display: inline-block;
 	height: 18px;
 	width: 22px;
@@ -260,15 +259,15 @@ header-notication {
 	*zoom: 1
 }
 
-header-notication.on {
+.header-notification.on {
 	background-position: 0 -22px
 }
 
-header-notication:hover {
+.header-notification:hover {
 	background-position: 0 -63px
 }
 
-header-notication span {
+.header-notification span {
 	background-color: #b92025;
 	color: #fff;
 	display: none;
@@ -279,11 +278,11 @@ header-notication span {
 	z-index: 1
 }
 
-header-notication.on span {
+.header-notification.on span {
 	display: block
 }
 
-.notication-message {
+.notification-message {
 	background: transparent url(/web/20140617040344im_/https://d3v4eglovri8yt.cloudfront.net/static/044d4e36d0af524b/go/img/header/ico_msg.png) no-repeat 0 -43px
 }
 
@@ -314,6 +313,11 @@ dropdowns
     border-radius: 6px;
     box-shadow: 0 5px 10px #0003;
     background-clip: padding-box;
+}
+// right-aligned dropdown
+.dropdown-menu.pull-right {
+    right: 0;
+    left: auto;
 }
 .dropdown-menu>li>a {
     display: block;
@@ -351,6 +355,7 @@ footer
 **/
 footer {
 	background-color: #1e1e1e;
+	margin-top: auto;
 	padding: 50px 0;
 	font-size: 11px;
 	min-width: 960px

@@ -7,24 +7,15 @@
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/studio.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/importer.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/importer_share.css" rel="stylesheet" type="text/css">
 
-		<link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/studio.css.gz.css"
-			rel="stylesheet" type="text/css">
-		<link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/video_voice_vendor.css.gz.css"
-			rel="stylesheet" type="text/css">
-		<link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/worknote.css.gz.css"
-			rel="stylesheet" type="text/css">
-		<link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/importer.css.gz.css"
-			rel="stylesheet" type="text/css">
-		<link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/importer_share.css.gz.css"
-			rel="stylesheet" type="text/css">
+		<!-- <link href="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/css/worknote.css.gz.css" rel="stylesheet" type="text/css"> -->
 		
 
 
-		<script src="/static/go/js/go2.js"></script>
-		<script src="/static/go/js/site.js"></script>
-		<script src="/static/go/js/studio.js"></script>
-		<!-- JS LIBRARIES -->
+		
 		<script src="/static/go/js/libs/jquery/jquery-1.11.0.min.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery.swfobject.min.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery.tmpl.min.js"></script>
@@ -36,6 +27,11 @@
 				"locale_data": json_locale_data
 			});
 		</script>
+		<!-- GRA JS -->
+		<script src="/static/go/js/go2.js"></script>
+		<script src="/static/go/js/site.js"></script>
+		<script src="/static/go/js/studio.js"></script>
+
 		<script src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/js/app.js.gz.js"></script>
 
 		<script src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/js/cookie.js.gz.js"></script>
@@ -51,137 +47,15 @@
 		<script src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/js/amplitude/go_amp.js.gz.js">
 		</script>
 	</head>
-	<body class="en_US has-user full_screen_studio studio-locked" style="">
-		<%- include("./includes/header", { user: user }); %>
-
-		<section class="page-breadcrumb">
-			<div class="container flex-container">
-				<a href="/">Home</a>
-				<div class="divider">></div>
-				<a href="/videomaker">Video Maker</a>
-				<div class="divider">></div>
-				<a href="#"><%= themelist.find(v => v.id == themeId)?.name || "Comedy World" %></a>
-			</div>
-		</section>
-
+	<body class="en_US has-user full_screen_studio studio-locked">
 		<div class="page-container">
 
 			<div style="position:relative;">
-				<div id="studioBlock" style="height: 0px;">
-					<!-- -->
-				</div>
-
-				<div id="playerBlock"></div>
-
-				<div style="display: none;">
-					<div class="templates">
-						<div class="studiotemplatebrowser">
-							<div class="close"><a href="javascript:hideCCWidget()"
-									onclick="javascript:return hideCCWidget()">X</a></div>
-							<h1>Latest Releases</h1>
-							<div class="thumbcontainer">
-								<!-- All thumbcells here -->
-							</div>
-							<div class="more">
-								<a href="#">More Characters &gt;</a>
-							</div>
-						</div>
-						<div class="thumbcell">
-							<a href="" class="buttonlink">
-								<span class="button">
-									<span class="buynow">Buy now</span><br>
-									<span class="bucks">%d GoBucks</span>
-								</span>
-							</a>
-							<p class="gotit">Got It!</p>
-						</div>
-					</div>
-				</div>
-				<div class="templates" style="display: none;">
-					<div class="voice-vendor-ad" style="display: none;">
-						<div class="close"><a href="javascript:hideVoiceAdWidget()"
-								onclick="javascript:return hideVoiceAdWidget()">×</a></div>
-						<div id="studio-voice-vendor-container">
-							<ul>
-								<li><a class="gtm-ga-pageview-t2" id="voice-vendor-vb" target="_blank"
-										href="https://voicebunny.com/?p=vyond"
-										data-gtmv-page="/pageTracker/voicebanner/VoiceBunny"
-										onclick="setvoicebannercookie();"><img
-											src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/img/video_voice/btn_vb.png"></a>
-								</li>
-								<li><a class="gtm-ga-pageview-t2" id="voice-vendor-iw" target="_blank"
-										href="https://www.inwhatlanguage.com/goanimate-translations/"
-										data-gtmv-page="/pageTracker/voicebanner/InWhatLanguage"
-										onclick="setvoicebannercookie();"><img
-											src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/img/video_voice/btn_iw.png"></a>
-								</li>
-								<li>
-									<hr class="sperator">
-									<a class="voiceover-tips gtm-ga-pageview-t2" target="_blank"
-										href="http://goanimate.com/video-maker-tips/tutorial-why-you-should-break-up-your-dialogue-audio-into-small-pieces-before-importing/"
-										data-gtmv-page="/pageTracker/voicebanner/VoiceoverTips"
-										onclick="setvoicebannercookie();"><span><i class="lightbulb"></i>Voiceover Tips
-											&gt;</span></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<script type="text/javascript">
-					function setvoicebannercookie() {
-						SetCookie('vbcdt', '1576454336', 31, '/');
-					}
-
-					function voiceBanner(bannerId) {
-						var banner = $('#voice-vendor-' + bannerId);
-						if (banner.length) {
-							banner.click();
-
-							window.open(banner.attr('href'), '_blank');
-						}
-					}
-
-				</script>
-
 				<div id="previewPlayerContainer" style="display: none;">
 					<div class="preview-player" id="previewPlayer">
 						<h2>Preview Video</h2>
 						<div id="playerdiv"></div>
-						<div id="h5-playerdiv">
-							<video class="hidden" id="h5-preview-player" width="100%" height="100%"></video>
-							<div class="player-overlay loading">
-								<div class="loading-icon">
-									<div class="loading-message"></div>
-								</div>
-								<div class="replay-button"></div>
-							</div>
-							<div class="video-controls">
-								<div class="playback-button">
-									<div class="icon-image"></div>
-								</div>
-								<div class="seek-bar">
-									<div class="value-bar total-bar"></div>
-									<div class="value-bar buffered-bar"></div>
-									<div class="value-bar played-bar"></div>
-									<div class="slider-thumb"></div>
-									<div class="time-tooltip">00:00</div>
-								</div>
-								<div class="time-display">
-									<div class="text">00:00 / 00:00</div>
-								</div>
-								<div class="volume-control">
-									<div class="volume-icon">
-										<div class="icon-image"></div>
-									</div>
-									<div class="volume-slider">
-										<div class="slider-track">
-											<div class="track-value-bar"></div>
-										</div>
-										<div class="slider-thumb"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						
 						<div id="preview-alert-block" class="preview-alert-block clearfix">Auto-pause at end of scenes
 							is not supported in our web video player.<br>The auto-pause feature is supported once you
 							download the video as presentation in the "Share/Export" overlay.</div>
@@ -191,27 +65,9 @@
 							<button class="preview-button save" type="button" onclick="publishStudio();">Save
 								Now</button> </div>
 
-						<a class="close_btn" href="#" onclick="switchBackToStudio(); return false;">×</a>
+						<a class="close_btn" href="#" onclick="switchBackToStudio(); false;">×</a>
 					</div>
 				</div>
-
-				<div class="video-tutorial" id="video-tutorial" style="display: none;">
-					<div class="video-tutorial-body">
-						<h2>&nbsp;</h2>
-						<div class="video-tutorial-player">
-							<div id="wistia_player" class="wistia_embed" style="width:860px;height:445px">&nbsp;</div>
-						</div>
-						<a class="close_btn" href="#" onclick="return false;">×</a>
-					</div>
-					<div class="video-tutorial-footer clearfix">
-						<button class="tutorial-button" type="button">
-							Close </button>
-					</div>
-				</div>
-			</div>
-
-			<div style="display:none">
-
 			</div>
 
 			<script>
@@ -305,8 +161,6 @@
 					"goteam_draft_only": 0
 				};
 
-				var _ccad = null;
-
 				function proceedWithFullscreenStudio() {
 					// These should be executed only when we are really ready to show the studio
 					window.onbeforeunload = function (e) {
@@ -331,61 +185,10 @@
 					ajust_studio();
 				}
 
-				function hideCCWidget() {
-					show_cc_ad = false;
-					$('div.studiotemplatebrowser').css('display', 'none');
-					var widget_right = 0;
-					if (show_voice_ad) {
-						$('#studio_container div.voice-vendor-ad').css('right', widget_right);
-						widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-					}
-					if (show_worknote) {
-						$('#studio_container div.studio-worknote').css('right', widget_right);
-					}
-					ajust_studio();
-					return false;
-				}
-
-				function showVoiceAdWidget() {
-					show_voice_ad = true;
-					$('#studio_container div.voice-vendor-ad').css('display', 'block');
-					var widget_right = 0;
-					if (show_cc_ad) {
-						widget_right += $('div.studiotemplatebrowser').css('width');
-					}
-					$('#studio_container div.voice-vendor-ad').css('right', widget_right);
-					widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-					if (show_worknote) {
-						$('#studio_container div.studio-worknote').css('right', widget_right);
-					}
-					ajust_studio();
-					return false;
-				}
-
-				function hideVoiceAdWidget() {
-					show_voice_ad = false;
-					$('#studio_container div.voice-vendor-ad').css('display', 'none');
-					var widget_right = 0;
-					if (show_cc_ad) {
-						widget_right += $('div.studiotemplatebrowser').css('width');
-					}
-					if (show_worknote) {
-						$('#studio_container div.studio-worknote').css('right', widget_right);
-					}
-					ajust_studio();
-					return false;
-				}
-
 				function showWorknoteWidget() {
 					show_worknote = true;
 					$('#studio_container div.studio-worknote').css('display', 'block');
 					var widget_right = 0;
-					if (show_cc_ad) {
-						widget_right += $('div.studiotemplatebrowser').css('width');
-					}
-					if (show_voice_ad) {
-						widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-					}
 					$('#studio_container div.studio-worknote').css('right', widget_right);
 					ajust_studio();
 					return false;
@@ -438,11 +241,6 @@
 							$(window).on('resize', function () {
 								ajust_studio();
 							});
-							$(window).on('studio_resized', function () {
-								if (show_cc_ad) {
-									_ccad.refreshThumbs();
-								}
-							});
 
 							if (studioApiReady) {
 								var api = studioApi($('#studio_holder'));
@@ -470,17 +268,6 @@
 						studioModule = new StudioModule();
 					})
 
-				var previewPlayer = new PreviewPlayer("wss://preview.vyond.com", true),
-					previewPlayerRetryCount = 5;
-
-				previewPlayer.setVideoElement(document.getElementById('h5-preview-player'));
-				previewPlayer.setMovieId('');
-				previewPlayer.setUserAuthenticationToken(
-					'1:760a913514c85f012a4977b79b920687c0b33a7b268c26340021d6720a6ea026:y8X5juI1C+TKXDaGsW/6CLASVlqRtMZyE2rJVx2aUzc='
-					);
-				previewPlayer.setFromPptConversion(false);
-				previewPlayer.connect();
-
 			</script>
 			<script>
 				$("#previewPlayerContainer, #video-tutorial").hide();
@@ -489,59 +276,18 @@
 					filmXmlStr = null,
 					previewStartFrame = 0;
 
-				function checkBrowser() {
-					return window.WebSocket && window.MediaSource;
-				}
-
-				function checkTheme(themeList) {
-					if (themeList === undefined) {
-						return true;
-					}
-
-					var themeCount = themeList.length,
-						h5Themes = {
-							'common': true,
-							'infographics': true,
-							'business': true,
-							'whiteboard': true,
-							'commoncraft': true
-						};
-
-					for (var i = 0; i < themeCount; i++) {
-						if (h5Themes[themeList[i]] === undefined) {
-							return false;
-						}
-					}
-
-					return true;
-				}
-
-				function checkPreviewServer() {
-					return previewPlayer._connectionState === PreviewPlayerConstants.STATE_READY;
-				}
-
-				function loadH5Preview() {
-					if (filmXmlStr === null) {
-						return;
-					}
-
-					$('#h5-playerdiv').data('previewPlayerControl').reset();
-					previewPlayer.preview(filmXmlStr, previewStartFrame);
-					$('#previewPlayer').addClass('using-h5');
-				}
+				
 
 				function loadLegacyPreview() {
 					if (movieDataXmlStr === null) {
 						return;
 					}
 
-					pauseH5PreviewPlayer();
-
 					savePreviewData(movieDataXmlStr);
 					createPreviewPlayer("playerdiv", {
 						height: 360,
 						width: 640,
-						player_url: "https://d3v4eglovri8yt.cloudfront.net/animation/66453a3ba2cc5e1b/player.swf",
+						player_url: "/static/animation/414827163ad4eb60/player.swf",
 						quality: "high"
 					}, {
 						movieOwner: "",
@@ -554,7 +300,7 @@
 						userId: "",
 						username: "",
 						uemail: "",
-						apiserver: "https://ga.vyond.com/",
+						apiserver: "/",
 						thumbnailURL: "",
 						copyable: "0",
 						isPublished: "0",
@@ -578,12 +324,11 @@
 						ratingCount: "",
 						numContact: 0,
 						isInitFromExternal: 1,
-						storePath: "https://d3v4eglovri8yt.cloudfront.net/store/3a981f5cb2739137/<store>",
-						clientThemePath: "https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/<client_theme>",
-						animationPath: "https://d3v4eglovri8yt.cloudfront.net/animation/66453a3ba2cc5e1b/",
+						storePath: "/static/store/3a981f5cb2739137/<store>",
+						clientThemePath: "/static/ad44370a650793d9/<client_theme>",
+						animationPath: "/static/animation/66453a3ba2cc5e1b/",
 						startFrame: previewStartFrame
 					});
-					$('#previewPlayer').removeClass('using-h5');
 				}
 
 				function initPreviewPlayer(dataXmlStr, startFrame, containsChapter, themeList) {
@@ -608,23 +353,8 @@
 
 					$("#previewPlayerContainer").show();
 
-					var isThemeSupport = checkTheme(themeList);
-
-					if (checkBrowser() && isThemeSupport && checkPreviewServer()) { // Preview with next
-						loadH5Preview();
-					} else {
-						// fallback to legacy preview
-						loadLegacyPreview();
-
-						if (!checkPreviewServer() && (previewPlayerRetryCount > 0)) { // Retry on WebSocket connection problem
-							previewPlayer.connect();
-							previewPlayerRetryCount--;
-						}
-					}
-				}
-
-				function pauseH5PreviewPlayer() {
-					$("#h5-preview-player").get(0).pause();
+					// fallback to legacy preview
+					loadLegacyPreview();	
 				}
 
 				function switchBackToStudio() {
@@ -633,8 +363,6 @@
 							pause: function () {}
 						}).pause();
 					} catch (err) {};
-
-					pauseH5PreviewPlayer();
 
 					$("#previewPlayerContainer").hide();
 					restoreStudio();
@@ -648,8 +376,6 @@
 						}).pause();
 					} catch (err) {};
 
-					pauseH5PreviewPlayer();
-
 					$("#previewPlayerContainer").hide();
 					restoreStudio();
 					document.getElementById("Studio").onExternalPreviewPlayerPublish();
@@ -659,21 +385,6 @@
 					loadedFullscreenStudio = false;
 				}
 
-				function studioUpsellUpgrade() {
-					$('#upsell-modal').modal('hide');
-					restoreStudio();
-					document.getElementById("Studio").onUpsellUpgrade();
-				}
-
-				function customFontBanner() {
-					var plansAndPricingUrl = 'https://www.vyond.com/pricing';
-					window.open(plansAndPricingUrl, '_blank');
-				}
-
-				window.addEventListener(PreviewPlayerEvent.ANIMATION_INCOMPATIBLE, function () {
-					loadLegacyPreview();
-				});
-
 				VideoTutorial.tutorials.composition = {
 					title: 'Composition Tutorial',
 					wistiaId: 'nuy96pslyp',
@@ -682,7 +393,6 @@
 					title: 'Enter and Exit Effects Tutorial',
 					wistiaId: 'fvjsa3jnzc',
 				}
-
 			</script>
 
 			<script id="importer-share-asset-tmpl" type="text/x-jquery-tmpl">
@@ -747,10 +457,7 @@
 	</ul>
 	</div>
 	</script>
-			<script src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/js/importer_share.js.gz.js">
-			</script>
-			<script src="https://d3v4eglovri8yt.cloudfront.net/static/019b83797158fc0c/go/js/importer.js.gz.js">
-			</script>
+			
 			<script>
 				window.searchTermsDataUrl = 'https://d3v4eglovri8yt.cloudfront.net/store/3a981f5cb2739137/common/terms.json';
 
@@ -854,4 +561,6 @@
 
 		</div>
 	</body>
+	<script src="/static/go/js/importer_share.js"></script>
+	<script src="/static/go/js/importer.js"></script>
 </html>

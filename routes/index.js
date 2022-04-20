@@ -6,6 +6,7 @@ const router = express.Router();
  * stuff
  */
 router.use("/", require("./app"));
+router.use("/", require("./files"));
 router.use("/", require("./preference"));
 router.use("/", require("./theme"));
 router.use("/", require("./users"));

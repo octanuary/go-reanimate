@@ -12,7 +12,6 @@
 		<link href="/static/go/css/videomaker.css" rel="stylesheet" type="text/css">
 		
 		<script src="/static/go/js/go2.js"></script>
-		<script src="/static/go/js/site.js"></script>
 		<!-- JS LIBRARIES -->
 		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/static/go/js/libs/Gettext.js"></script>
@@ -26,6 +25,14 @@
 	</head>
 	<body>
 		<%- include("./includes/header", { user: user }); %>
+
+		<section class="page-breadcrumb">
+			<div class="container flex-container">
+				<a href="/">Home</a>
+				<div class="divider">></div>
+				<a href="/themelist">Themes</a>
+			</div>
+		</section>
 
 		<div class="vm-bf">
 			<div class="container">
@@ -66,7 +73,7 @@
 					</div>
 					<div class="filter-dropdown-container">
 						<div class="filter-dropdown dropdown">
-							<a class="filter-dropdown-toggle" data-toggle="dropdown" href="#">Filter Themes <span
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Filter Themes <span
 									class="caret"></span></a>
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
 								<li>
@@ -168,7 +175,7 @@
 								<div class="apps">
 									${(theme.features.vm) ? `<a class="btn btn-orange" href="/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
 									${(theme.features.template) ? `<a class="btn btn-icon" href="/videomaker/lite/${theme.id}" data-original-title="Template"><i class="i-qvm"></i></a>` : ""}
-									${(theme.features.cc) ? `<a class="btn btn-icon" href="/charactercreator/${theme.id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
+									${(theme.features.cc) ? `<a class="btn btn-icon" href="/charactercreator/${theme.cc_theme_id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
 								</div>
 							</div>
 						</div>
@@ -243,4 +250,5 @@
 			}
 		</script>
 	</body>
+	<script src="/static/go/js/site.js"></script>
 </html>

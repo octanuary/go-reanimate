@@ -8,6 +8,7 @@ const addToZip = require("../helpers/addToZip");
 /**
  * api
  */
+// themelist
 router.post("/goapi/getThemelist", (req, res) => {
 	if (!req.user) { // check if the user is signed in
 		res.redirect("/login").end();
@@ -29,6 +30,7 @@ router.post("/goapi/getThemelist", (req, res) => {
  	zip.zip().then(buffer => res.end(buffer));
 });
 
+// the theme itself
 router.post("/goapi/getTheme", (req, res) => {
 	if (!req.user) { // check if the user is signed in
 		res.redirect("/login").end();

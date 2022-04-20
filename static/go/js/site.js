@@ -10,8 +10,8 @@ $(".dropdown-toggle").on("click", (event) => {
 	event.preventDefault();
 	event.stopPropagation();
 
-	$("body").one("click", (event) => {
-		if (!$(event.target).closest(".dropdown-menu").length) {
+	$("body").one("click", (e) => {
+		if (!$(e.target).closest(event.target).length) {
 			dropdown.hide();
 		}
 	});
