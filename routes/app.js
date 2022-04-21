@@ -56,4 +56,16 @@ router.get("/go/videomaker/full/:tId?/:mId?", (req, res) => {
 	});
 });
 
+// quick videomaker
+router.get("/go/videomaker/lite/:tId?/", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+
+ 	res.render("app/golite", {
+		themeId: req.params.tId || "custom",
+		movieId: req.params.mId || "",
+		themelist: themelist,
+		user: req.user
+	});
+});
+
 module.exports = router;
