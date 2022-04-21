@@ -7,25 +7,52 @@ const router = express.Router();
  */
 // choose a theme page
 router.get("/themelist", (req, res) => {
-	if (!req.user) { // check if the user is signed in
-		res.redirect("/login").end();
-		return;
-	}
+	if (!req.user) res.redirect("/login").end();
 
- 	res.render("themelist", { themelist: themelist, user: req.user });
+ 	res.render("app/themelist", { themelist: themelist, user: req.user });
+});
+
+// character creator
+router.get("/go/character_creator/:tId?/new_char", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+	if (!req.params.tId) res.redirect("/themelist").end();
+
+	// validate the theme id
+	const themeId = (themelist.find(v => v.cc_theme_id == req.params.tId && v.features.cc)) ? req.params.tId : "family";
+
+ 	res.render("app/cc", {
+		themeId: themeId,
+		bs: req.query.type || "adam",
+		charId: req.params.mId || "",
+		themelist: themelist,
+		user: req.user
+	});
+});
+
+// character browser
+router.get("/go/character_creator/:tId?", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+	if (!req.params.tId) res.redirect("/themelist").end();
+
+	// validate the theme id
+	const themeId = (themelist.find(v => v.cc_theme_id == req.params.tId && v.features.cc)) ? req.params.tId : "family";
+
+ 	res.render("app/cc_browser", {
+		themeId: themeId,
+		themelist: themelist,
+		user: req.user
+	});
 });
 
 // full videomaker
-router.get("/videomaker/full/:tId?/:mId?", (req, res) => {
-	if (!req.user) { // check if the user is signed in
-		res.redirect("/login").end();
-		return;
-	}
- 	res.render("studio", {
+router.get("/go/videomaker/full/:tId?/:mId?", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+
+ 	res.render("app/studio", {
 		themeId: req.params.tId || "custom",
 		movieId: req.params.mId || "",
 		themelist: themelist,
-		user: req.user || {}
+		user: req.user
 	});
 });
 

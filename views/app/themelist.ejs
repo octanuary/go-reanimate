@@ -24,7 +24,7 @@
 		</script>
 	</head>
 	<body>
-		<%- include("./includes/header", { user: user }); %>
+		<%- include("../includes/header", { user: user }); %>
 
 		<section class="page-breadcrumb">
 			<div class="container flex-container">
@@ -173,9 +173,9 @@
 							<div class="theme-meat">
 								<h3>${theme.name}</h3>
 								<div class="apps">
-									${(theme.features.vm) ? `<a class="btn btn-orange" href="/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
+									${(theme.features.vm) ? `<a class="btn btn-orange" href="/go/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
 									${(theme.features.template) ? `<a class="btn btn-icon" href="/videomaker/lite/${theme.id}" data-original-title="Template"><i class="i-qvm"></i></a>` : ""}
-									${(theme.features.cc) ? `<a class="btn btn-icon" href="/charactercreator/${theme.cc_theme_id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
+									${(theme.features.cc) ? `<a class="btn btn-icon" href="/go/character_creator/${theme.cc_theme_id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
 								</div>
 							</div>
 						</div>
@@ -218,7 +218,7 @@
 			</script>
 
 		</main>
-		<%- include("./includes/footer", {}); %>
+		<%- include("../includes/footer", {}); %>
 		<!-- END OF PAGE STRUCTURE -->
 
 

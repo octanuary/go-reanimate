@@ -14,6 +14,12 @@ module.exports = async function (req, res, next) {
 		}
 		return req;
 	};
+	res.goError = (message, code = "") => {
+		res
+			.status(403)
+			.end(`1<error><code>${code}</code><message>${message}</message><text></text></error>`);
+		return res;
+	};
 	try { // user authentication
 		// it's in a try catch because without it req.user is undefined
 		const userData = await User.getUserByToken(req.cookies.utk);

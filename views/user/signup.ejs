@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta property="og:site_name" content="GoAnimate">
-		<title>Login to GoAnimate</title>
+		<title>Sign Up to GoAnimate</title>
 		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
@@ -25,13 +25,13 @@
 		</script>
 	</head>
 	<body>
-		<%- include("./includes/header", { user: user }); %>
+		<%- include("../includes/header", { user: null }); %>
 
 		<section class="page-breadcrumb">
 			<div class="container flex-container">
 				<a href="/">Home</a>
 				<div class="divider">></div>
-				<a href="/login">Login</a>
+				<a href="/signup">Sign Up</a>
 			</div>
 		</section>
 
@@ -39,7 +39,7 @@
 			<div class="container flex-container centered">
 				<div class="floating-form">
 					<div class="form-header">
-						<h1>Login</h1>
+						<h1>Sign Up</h1>
 					</div>
 					<form class="signup-form" id="signup-form" action="/api/v1/user/signup" method="post" novalidate="">
 						<div class="form-error-message" id="signup-form-message"></div>
@@ -48,12 +48,26 @@
 							<input id="signup-email" type="email" name="email" placeholder="EMAIL ADDRESS" value="">
 						</div>
 						<div class="form-row form-input">
+							<input id="signup-username" type="text" name="username" placeholder="DISPLAY NAME" value=""
+								maxlength="50">
+						</div>
+						<div class="form-row form-input">
 							<input id="signup-password" type="password" name="password1" placeholder="PASSWORD" value=""
 								autocomplete="off">
 						</div>
+						<div class="form-row form-input">
+							<input id="signup-confirm-password" type="password" name="password2"
+								placeholder="CONFIRM PASSWORD" value="" autocomplete="off">
+						</div>
 
 						<div class="form-row">
-							<button class="btn btn-orange btn-xlarge" id="btn-signup" type="submit">LOGIN</button>
+							By signing up you agree to our <a href="/termsofuse" target="_blank">Terms of Use</a>
+							and our <a href="/privacy" target="_blank">Privacy Policy</a>.
+							<input type="hidden" name="termsofuse" value="on">
+						</div>
+
+						<div class="form-row">
+							<button class="btn btn-orange btn-xlarge" id="btn-signup" type="submit">SIGN UP</button>
 
 							<input type="hidden" name="regsignup" value="1">
 							<input type="hidden" name="action" value="signup">
@@ -61,7 +75,7 @@
 						</div>
 
 						<div class="form-row">
-							No? <a href="/login">Login here</a>.
+							Registered? <a href="/login">Login here</a>.
 						</div>
 					</form>
 				</div>
@@ -95,7 +109,7 @@
 			</div>
 		</main>
 
-		<%- include("./includes/footer", {}); %>
+		<%- include("../includes/footer", {}); %>
 
 		<script>
 			(function () {
@@ -170,9 +184,7 @@
 					var buttonText = $('#btn-signup').text();
 					$('#btn-signup').text('Please wait...');
 					$.post("/api/v1/user/signup", $('#signup-form').serialize(), function (response) {
-						parseResponse(response);
-
-						if (responseArray.code == 0) {
+						if (response.status == "ok") {
 							$(document).trigger('user.signup');
 						} else {
 							processing = false;

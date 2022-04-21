@@ -3,17 +3,19 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta property="og:site_name" content="GoAnimate">
-		<title><%= uinfo.username %> on GoAnimate</title>
+		<title>Make a Character | GoAnimate</title>
 		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
-		<link href="/static/go/css/user.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/app/cc.css" rel="stylesheet" type="text/css">
 
 		<script src="/static/go/js/go2.js"></script>
+		<script src="/static/go/js/site.js"></script>
 		<!-- JS LIBRARIES -->
-		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
+		<script src="/static/go/js/libs/jquery/jquery-1.11.0.min.js"></script>
+		<script src="/static/go/js/libs/jquery/jquery.swfobject.min.js"></script>
 		<script src="/static/go/js/libs/Gettext.js"></script>
 		<script src="/static/go/po/goserver_js-en_US.js"></script>
 		<script> // set up gettext
@@ -24,58 +26,62 @@
 		</script>
 	</head>
 	<body>
-		<%- include("./includes/header", { user: user }); %>
+		<%- include("../includes/header", { user: user }); %>
 
 		<section class="page-breadcrumb">
 			<div class="container flex-container">
 				<a href="/">Home</a>
 				<div class="divider">></div>
-				<a href="/user">Users</a>
+				<a href="/themelist">Themes</a>
 				<div class="divider">></div>
-				<a href="/user/<%= uinfo.id %>"><%= uinfo.username %></a>
+				<a href="#"><%= themelist.find(v => v.cc_theme_id == themeId && v.features.cc)?.name || "Comedy World" %> Characters</a>
 			</div>
 		</section>
 
-		<div class="profile-main">
-			<div class="container">
-				<img class="portrait" src="/files/user/<%= uinfo.id %>/picture" alt="">
-		
-				<div class="profile-main-content">
-					<h1><a href="/user/<%= uinfo.id %>" title="<%= uinfo.username %>"><%= uinfo.username %></a> </h1>
-		
-					<div class="views"><i class="stat-view"></i> 43,671</div>
-					<div class="joined">Joined: 29 Feb 3097</div>
-		
-					<ul class="profile-main-nav">
-						<li><a href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
-						<li><a href="/user/<%= uinfo.id %>/favorites"><span class="icon fav"></span> <span class="num">572</span> Favorites</a></li>
-						<li><a href="/user/<%= uinfo.id %>/followers"><span class="icon follower"></span> <span class="num">2,555</span> Followers</a></li>
-						<li><a href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num">655</span> Following</a></li>
-					</ul>
-		
-					<div class="bio"><%= uinfo.bio %></div>
-		
-					<div class="profile-main-actions">
-						Share this page:&nbsp;
-						<a target="_blank" href="/shareUser/twitter<%= uinfo.id %>" onclick="_gaq.push(['_trackPageview', '/pageTracker/share/twitter/userhtml']);"><i class="ico-twitter"></i></a>
-					</div>
-		
-		
-				</div>
-			</div>
-		</div>
-
 		<main>
 			<div class="container flex-container centered">
-
+				<div id="char_holder"></div>
 			</div>
 		</main>
 
-		<%- include("./includes/footer", {}); %>
+		<%- include("../includes/footer", {}); %>
 
 		<script>
-			(function () {
-			})();
+			function characterSaved() {
+				window.location.href = "/go/character_creator/<%= themeId %>";
+			}
+
+			var studio_data = {
+				id: "Studio",
+				swf: "/static/animation/414827163ad4eb60/cc.swf",
+				width: "100%",
+				height: "100%",
+
+				align: "middle",
+				allowScriptAccess: "always",
+				allowFullScreen: "true",
+				wmode: "window",
+
+				hasVersion: "10.3"
+			};
+
+			studio_data.flashvars = {
+				"original_asset_id": "<%= charId %>",
+				"apiserver": "\/",
+				"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
+				"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",
+				"ut": 60,
+				"lid": "0",
+				"ctc": "go",
+				"tlang": "en_US",
+				"siteId": "13",
+				"appCode": "go",
+				"lang": "en",
+				"uisa": 0,
+				"themeId": "<%= themeId %>",
+				"bs": "<%= bs %>"
+			};
+			$("#char_holder").flash(studio_data);
 		</script>
 		<script>
 			function locStorage(action, key, value) {
@@ -104,7 +110,5 @@
 				}
 			}
 		</script>
-
-<script src="/static/go/js/site.js"></script>
 	</body>
 </html>

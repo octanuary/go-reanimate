@@ -10,10 +10,7 @@ const addToZip = require("../helpers/addToZip");
  */
 // themelist
 router.post("/goapi/getThemelist", (req, res) => {
-	if (!req.user) { // check if the user is signed in
-		res.redirect("/login").end();
-		return;
-	}
+	if (!req.user) res.goError(`You must be logged in to perform this action.`);
 
 	const zip = nodezip.create();
 	// generate an xml list of themes
@@ -32,10 +29,7 @@ router.post("/goapi/getThemelist", (req, res) => {
 
 // the theme itself
 router.post("/goapi/getTheme", (req, res) => {
-	if (!req.user) { // check if the user is signed in
-		res.redirect("/login").end();
-		return;
-	}
+	if (!req.user) res.goError(`You must be logged in to perform this action.`);
 
 	const zip = nodezip.create();
 	// add theme xml to zip, that's it

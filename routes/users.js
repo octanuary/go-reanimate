@@ -12,12 +12,12 @@ router.get("/user/:uId", async (req, res) => {
 		res.status(404).send("User not found");
 		return;
 	}
-	res.render("user", { uinfo: user, user: req.user });
+	res.render("user/user", { uinfo: user, user: req.user });
 });
 router.get("/signup", (req, res) => {
 	if (req.user) res.redirect("/dashboard").end();
 
-	res.render("signup", {}, (err, html) => res.send(html))
+	res.render("user/signup", {}, (err, html) => res.send(html))
 });
 
 /**

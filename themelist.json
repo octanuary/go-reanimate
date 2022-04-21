@@ -13,7 +13,7 @@
 	{
 		"name": "Stickly Business",
 		"id": "sticklybiz",
-		"cc_theme_id": "sticklybiz",
+		"cc_theme_id": "",
 		"tags": "",
 		"features": {
 			"vm": true,
@@ -24,7 +24,7 @@
 	{
 		"name": "Common Craft",
 		"id": "commoncraft",
-		"cc_theme_id": "commoncraft",
+		"cc_theme_id": "",
 		"tags": "",
 		"features": {
 			"vm": true,
@@ -57,7 +57,7 @@
 	{
 		"name": "White Houserz",
 		"id": "politics2",
-		"cc_theme_id": "politics2",
+		"cc_theme_id": "",
 		"tags": "lipsync qvm",
 		"features": {
 			"vm": true,
@@ -68,7 +68,7 @@
 	{
 		"name": "Business Models",
 		"id": "bizmodels",
-		"cc_theme_id": "bizmodels",
+		"cc_theme_id": "",
 		"tags": "",
 		"features": {
 			"vm": true,
@@ -79,7 +79,7 @@
 	{
 		"name": "Cartoon Classics",
 		"id": "retro",
-		"cc_theme_id": "retro",
+		"cc_theme_id": "",
 		"tags": "",
 		"features": {
 			"vm": true,
@@ -88,14 +88,14 @@
 		}
 	},
 	{
-		"name": "Space Citizen",
+		"name": "Space Citizens",
 		"id": "spacecitizen",
 		"cc_theme_id": "spacecitizen",
 		"tags": "lipsync",
 		"features": {
 			"vm": true,
 			"template": false,
-			"cc": false
+			"cc": true
 		}
 	},
 	{
@@ -167,7 +167,7 @@
 	{
 		"name": "Stick Figure",
 		"id": "stick",
-		"cc_theme_id": "stick",
+		"cc_theme_id": "",
 		"tags": "",
 		"features": {
 			"vm": true,
@@ -178,7 +178,7 @@
 	{
 		"name": "Wildlife",
 		"id": "wildlife",
-		"cc_theme_id": "wildlife",
+		"cc_theme_id": "",
 		"tags": "lipsync qvm",
 		"features": {
 			"vm": false,
