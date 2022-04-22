@@ -23,6 +23,25 @@ module.exports = {
 		connection.end();
 		return token;
 	},
+	follows(mode, id) {
+		// valid modes: following, follower
+		return new Promise((resolve, rej) => {
+			const connection = mysql.createConnection({
+				host: process.env.SQL_HOST,
+				user: process.env.SQL_USER,
+				password: process.env.SQL_PASS,
+				database: process.env.SQL_DB
+			});
+			const stmt = `SELECT * FROM follows WHERE ${mode} = ?`;
+			// select the user data
+			connection.query(stmt, [id], (err, res, fields) => {
+				if (err) rej();
+
+				resolve(res);
+			});
+			connection.end();
+		})
+	},
 	getUserByToken(token) {
 		return new Promise((resolve, rej) => {
 			// verify the token
@@ -37,7 +56,7 @@ module.exports = {
 				});
 				const stmt = "SELECT * FROM user WHERE email = ?";
 				// select the user data
-				connection.query(stmt, [decoded.email], (err, res, fields) => {
+				connection.query(stmt, [decoded.email], async (err, res, fields) => {
 					if (err) rej();
 					if (res.length == 0) rej();
 	
@@ -47,7 +66,9 @@ module.exports = {
 	
 					Object.assign(res[0], {
 						password: password,
-						token: token
+						token: token,
+						followers: await this.follows("following", id),
+						following: await this.follows("follower", id)
 					});
 					resolve(res[0]);
 				});
@@ -65,10 +86,14 @@ module.exports = {
 			});
 			const stmt = "SELECT * FROM user WHERE id = ?";
 			// select the user data
-			connection.query(stmt, [id], (err, res, fields) => {
+			connection.query(stmt, [id], async (err, res, fields) => {
 				if (err) rej();
 				if (res.length == 0) rej();
 
+				Object.assign(res[0], {
+					followers: await this.follows("following", id),
+					following: await this.follows("follower", id)
+				});
 				resolve(res[0]);
 			});
 			connection.end();

@@ -26,16 +26,6 @@
 	<body>
 		<%- include("../includes/header", { user: user }); %>
 
-		<section class="page-breadcrumb">
-			<div class="container flex-container">
-				<a href="/">Home</a>
-				<div class="divider">></div>
-				<a href="/user">Users</a>
-				<div class="divider">></div>
-				<a href="/user/<%= uinfo.id %>"><%= uinfo.username %></a>
-			</div>
-		</section>
-
 		<div class="profile-main">
 			<div class="container">
 				<img class="portrait" src="/files/user/<%= uinfo.id %>/picture" alt="">
@@ -45,13 +35,6 @@
 		
 					<div class="views"><i class="stat-view"></i> 43,671</div>
 					<div class="joined">Joined: 29 Feb 3097</div>
-		
-					<ul class="profile-main-nav">
-						<li><a href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
-						<li><a href="/user/<%= uinfo.id %>/favorites"><span class="icon fav"></span> <span class="num">572</span> Favorites</a></li>
-						<li><a href="/user/<%= uinfo.id %>/followers"><span class="icon follower"></span> <span class="num">2,555</span> Followers</a></li>
-						<li><a href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num">655</span> Following</a></li>
-					</ul>
 		
 					<div class="bio"><%= uinfo.bio %></div>
 		
@@ -64,6 +47,17 @@
 				</div>
 			</div>
 		</div>
+
+		<section class="page-breadcrumb">
+			<div class="container flex-container">
+				<ul class="profile-main-nav">
+					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
+					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/favorites"><span class="icon fav"></span> <span class="num">572</span> Favorites</a></li>
+					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="icon follower"></span> <span class="num"><%= uinfo.followers.length %></span> Followers</a></li>
+					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num"><%= uinfo.following.length %></span> Following</a></li>
+				</ul>
+			</div>
+		</section>
 
 		<main>
 			<div class="container flex-container centered">

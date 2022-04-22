@@ -17,6 +17,11 @@
     margin-top: 0;
     margin-bottom: 5px;
 }
+
+
+/**
+profile links (follows and stuff)
+**/
 .profile-main-nav {
     list-style-type: none;
     border-right: 1px solid #eee;
@@ -24,6 +29,12 @@
     top: 0;
     right: 0;
 }
+.profile-main-nav li {
+    display: inline;
+    margin-left: 5px;
+}
+
+
 .profile-main .bio {
     margin: 30px 0;
 }
