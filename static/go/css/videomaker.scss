@@ -1,68 +1,61 @@
 /***
-refactor this
-please
+the themelist page
 ***/
 
 /**
 banner
 **/
 .vm-bf {
-	background: #1a97ab url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/makeavideo_back.jpg) no-repeat center 0;
+	background: #1a97ab url(../img/videomaker/makeavideo_back.jpg) no-repeat center 0;
 	color: #223c61;
 	height: 379px;
 	width: 100%;
 	text-align: center
 }
-
 .vm-bf h1 {
 	background: transparent url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/bar.png) no-repeat center 42px;
 	color: #fff;
 	font-size: 32px;
 	text-shadow: 3px 8px 8px rgba(34, 60, 97, 0.4);
-	padding: 0 0 10px;
+	padding: 0;
 	margin: 40px 0 0 0
 }
-
 .vm-bf .subtitle {
 	color: #223c61;
 	font-size: 14px;
 	text-shadow: 0 2px 0 #7ee4f1;
 	text-transform: uppercase
 }
-
 .vm-bf-content {
-	margin-left: 297px;
-	width: 330px;
-	text-align: left
+    margin: auto;
+    width: 330px;
 }
-
 .vm-bf-content p {
 	font-weight: 600;
 	line-height: 18px;
 	text-shadow: 0 1px 0 #7ee4f1
 }
-
 .vm-bf-content .actions {
 	margin-top: 25px;
 	width: 400px
 }
-
 .vm-bf-content .actions .btn-banner {
 	padding: 8px 42px
 }
-
 .vm-bf-cc {
 	margin-left: 10px;
 	padding: 16px
 }
 
+/**
+themelist header
+**/
 .themes-section .header {
 	border-bottom: 3px solid #ccc;
 	margin: 25px 0 20px 0;
 	padding: 0 0 10px 0;
 	position: relative
 }
-
 .themes-section .header h2 {
 	color: #222;
 	line-height: 20px;
@@ -71,168 +64,107 @@ banner
 	margin: 0;
 	padding: 0
 }
-
 .themes-section .header-content {
 	width: 840px
 }
 
+/**
+themelist
+**/
 .themes {
-	margin-left: -15px;
 	margin-bottom: 50px;
 	margin-top: 20px
 }
 
-.theme {
-	background-color: #fff;
-	float: left;
-	margin: 0 0 15px 15px;
-	width: 310px;
-	position: relative;
-	box-shadow: 0 0 10px rgba(50, 50, 50, 0.2)
-}
-@media (min-width: 768px) {
-	.theme {
-		width: 350px;
 
-		.theme-cover {
-			width: 258px;
-   			height: 143px;
-		}
-		.theme-cell {
-			height: 210px
-		}
-		.theme-cell:hover .theme-meat {
-			top: 125px;
-		}
-		.theme-meat {
-			top: 165px
-		}
+/**
+theme
+**/
+.theme {
+	// style
+	background: var(--background-secondary);
+	box-shadow: 0 0 7px #0002;
+	border-radius: 5px;
+	cursor: pointer;
+	// layout
+	display: inline-block;
+	overflow: hidden;
+	margin-bottom: 8px;
+	padding: 5px;
+	margin-right: 8px;
+	height: 220px;
+	width: 325px;
+
+	// children...
+	.theme-cover {
+		height: 175px;
 
 		img {
-			width: 335px;
+			width: 100%;
+			border-radius: 3px;
+			transition: .2s ease;
+		}
+	}
+	.theme-meat {
+		// style
+		background: var(--background-secondary);
+		transition: .2s ease;
+		// layout
+		position: relative;
+		top: 0;
+		padding: 5px {
+			top: 5px;
+		};
+
+		h3 {
+			margin: 5px 0 10px;
+			font-size: 17px;
+			font-weight: 500;
+		}
+	}
+	&:hover {
+		.theme-cover img {
+			opacity: .8;
+			transition-delay: .2s;
+		}
+		.theme-meat {
+			transform: translateY(-39px);
+			transition-delay: .2s;
+		}
+	}
+}
+// make it responsive
+@media (min-width: 768px) {
+	.theme {
+		height: 234px;
+		width: 352px;
+		.theme-cover {
+			height: 189px;
 		}
 	}
 }
 @media (min-width: 992px) {
 	.theme {
-		width: 302px;
-
+		height: 208px;
+		width: 305px;
 		.theme-cover {
-			width: 258px;
-   			height: 143px;
-		}
-		.theme-cell {
-			height: 210px
-		}
-		.theme-cell:hover .theme-meat {
-			top: 125px;
-		}
-		.theme-meat {
-			top: 165px
-		}
-
-		img {
-			width: 288px;
+			height: 163px;
 		}
 	}
 }
 @media (min-width: 1200px) {
 	.theme {
-		width: 272px;
-
+		height: 193px;
+		width: 277px;
 		.theme-cover {
-			width: 258px;
-   			height: 143px;
-		}
-		.theme-cell {
-			height: 190px
-		}
-		.theme-cell:hover .theme-meat {
-			top: 100px;
-		}
-		.theme-meat {
-			top: 146px
-		}
-
-		img {
-			width: 258px;
+			height: 148px;
 		}
 	}
 }
 
-
-.theme-cell {
-	width: 100%;
-	height: 220px;
-	position: relative;
-	overflow: hidden
-}
-
-.theme-cover {
-	position: absolute;
-	top: 6px;
-	left: 7px;
-}
-
-.theme-cover.launch {
-	cursor: pointer
-}
-
-.theme-tag {
-	background-color: #9fc920;
-	border-radius: 3px;
-	color: #fff;
-	font-size: 10px;
-	font-weight: bold;
-	text-transform: uppercase;
-	line-height: 1;
-	padding: 4px;
-	position: absolute;
-	top: -5px;
-	left: 15px
-}
-
-.theme-tag.biz {
-	background-color: #1fbba6
-}
-
-.theme-meat {
-	background-color: #fff;
-	width: 100%;
-	padding: 0 15px;
-	position: absolute;
-	top: 170px;
-	left: 0;
-	transition: .2s ease;
-	transition-property: top
-}
-
-.theme-cell:hover .theme-meat {
-	top: 135px;
-	-webkit-transition-delay: .2s;
-	-moz-transition-delay: .2s;
-	-ms-transition-delay: .2s;
-	-o-transition-delay: .2s;
-	transition-delay: .2s
-}
-
-.theme-cell.preview:hover .theme-meat {
-	top: 100px
-}
-
-.theme-meat h3 {
-	color: #666;
-	font-weight: normal;
-	font-size: 18px;
-	line-height: 20px;
-	margin: 10px 0 20px;
-	padding: 0
-}
-
-.theme-meat .apps .btn:first-child {
-	margin-right: 10px
-}
-
+/**
+icons
+**/
 .i-qvm,
 .i-cc {
 	background: transparent url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/qvm_small_icon.png) no-repeat center center;
@@ -267,6 +199,10 @@ banner
 	height: 23px
 }
 
+
+/**
+filter dropdown
+**/
 .filter-dropdown-container {
 	position: absolute;
 	bottom: 10px;
@@ -420,163 +356,4 @@ banner
 	color: #666;
 	display: inline-block;
 	padding-left: 18px
-}
-
-.flex-container a:active,
-.flexslider a:active,
-.flex-container a:focus,
-.flexslider a:focus {
-	outline: 0
-}
-
-.slides,
-.flex-control-nav,
-.flex-direction-nav {
-	margin: 0;
-	padding: 0;
-	list-style: none
-}
-
-.flexslider {
-	margin: 0;
-	padding: 0
-}
-
-.flexslider .slides>li {
-	display: none;
-	backface-visibility: hidden
-}
-
-.flexslider .slides img {
-	width: 100%;
-	display: block
-}
-
-.flex-pauseplay span {
-	text-transform: capitalize
-}
-
-.slides:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0
-}
-
-html[xmlns] .slides {
-	display: block
-}
-
-* html .slides {
-	height: 1%
-}
-
-.no-js .slides>li:first-child {
-	display: block
-}
-
-.flexslider {
-	overflow: hidden;
-	position: relative
-}
-
-.slides,
-.flex-control-nav,
-.flex-direction-nav {
-	list-style-type: none;
-	padding: 0;
-	margin: 0
-}
-
-.flex-direction-nav li a {
-	background: transparent url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/index/top/arrow_left_testimonial.png) no-repeat 1px 0;
-	position: absolute;
-	top: 50%;
-	margin: -33px 0 0;
-	height: 0;
-	padding-top: 34px;
-	overflow: hidden;
-	width: 25px;
-	opacity: .6
-}
-
-.flex-direction-nav li a:hover {
-	opacity: 1
-}
-
-.flex-direction-nav li a.prev {
-	left: 0
-}
-
-.flex-direction-nav li a.next {
-	background: transparent url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/index/top/arrow_right_testimonial.png) no-repeat 13px 0;
-	right: 0
-}
-
-.flex-control-nav {
-	width: 100%;
-	text-align: center
-}
-
-.flex-control-nav li {
-	display: inline-block;
-	margin: 0 0 0 10px
-}
-
-.flex-control-nav li:first-child {
-	margin: 0
-}
-
-.flex-control-nav li a {
-	background-color: #888;
-	display: block;
-	height: 0;
-	padding-top: 10px;
-	overflow: hidden;
-	width: 10px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px
-}
-
-.flex-control-nav li a:hover {
-	background-color: #000
-}
-
-.flex-control-nav li a.active {
-	background-color: #000
-}
-
-.modal-title a.divider {
-	border-right: 1px solid #ccc;
-	line-height: 24px;
-	height: 23px;
-	float: left;
-	margin-top: 6px
-}
-
-#payment-payment-block {
-	height: 596px
-}
-
-#payment-banners {
-	min-height: 252px
-}
-
-#payment-coupon-input {
-	font-size: 30px;
-	height: 40px;
-	width: 320px;
-	line-height: 36px
-}
-
-#payment-coupon-error {
-	text-align: left;
-	color: #c43535;
-	font-size: 13px;
-	font-weight: normal;
-	margin: 0 10px;
-	line-height: 16px
 }

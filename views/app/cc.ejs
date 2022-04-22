@@ -11,9 +11,6 @@
 		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/app/cc.css" rel="stylesheet" type="text/css">
 
-		<script src="/static/go/js/go2.js"></script>
-		<script src="/static/go/js/site.js"></script>
-		<!-- JS LIBRARIES -->
 		<script src="/static/go/js/libs/jquery/jquery-1.11.0.min.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery.swfobject.min.js"></script>
 		<script src="/static/go/js/libs/Gettext.js"></script>
@@ -34,7 +31,9 @@
 				<div class="divider">></div>
 				<a href="/themelist">Themes</a>
 				<div class="divider">></div>
-				<a href="#"><%= themelist.find(v => v.cc_theme_id == themeId && v.features.cc)?.name || "Comedy World" %> Characters</a>
+				<a href="/go/character_creator/<%= themeId %>"><%= themelist.find(v => v.cc_theme_id == themeId && v.features.cc)?.name || "Comedy World" %> Characters</a>
+				<div class="divider">></div>
+				<a href="#">New Character</a>
 			</div>
 		</section>
 
@@ -111,4 +110,7 @@
 			}
 		</script>
 	</body>
+	<!-- GRA JS -->
+	<script src="/static/go/js/go2.js"></script>
+	<script src="/static/go/js/site.js"></script>
 </html>

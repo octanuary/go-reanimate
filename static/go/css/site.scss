@@ -92,13 +92,6 @@ page anims
 		opacity: 1;
 	}
 }
-// animate dropdown
-.dropdown-menu.show {
-	animation: {
-		duration: 0.15s;
-		name: fade-drop-low;
-	};
-}
 
 /**
 page containers
@@ -328,8 +321,13 @@ dropdowns
     color: #333;
     white-space: nowrap;
 }
+// animate dropdown
 .open>.dropdown-menu {
-	display: block
+	animation: {
+		duration: 0.15s;
+		name: fade-drop-low;
+	};
+	display: block;
 }
 .dropdown-menu li>a.logout-link {
 	color: #dc143c

@@ -40,8 +40,6 @@ function ajust_studio() {
 		return
 	}
 	var b = 0;
-	b += (show_cc_ad ? 135 : 0);
-	b += (show_voice_ad ? 130 : 0);
 	b += (show_worknote ? (worknote_expand ? 340 : 30) : 0);
 	b += (show_importer ? 260 : 0);
 	var e = Math.max(jQuery(window).width(), STUDIO_MIN_WIDTH + b);

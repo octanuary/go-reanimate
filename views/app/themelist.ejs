@@ -26,14 +26,6 @@
 	<body>
 		<%- include("../includes/header", { user: user }); %>
 
-		<section class="page-breadcrumb">
-			<div class="container flex-container">
-				<a href="/">Home</a>
-				<div class="divider">></div>
-				<a href="/themelist">Themes</a>
-			</div>
-		</section>
-
 		<div class="vm-bf">
 			<div class="container">
 				<h1>Create Animated Videos. Easily.</h1>
@@ -44,25 +36,33 @@
 						backgrounds, props and scene starters - each with a unique visual style. Our flagship theme,
 						Business Friendly, offers the widest selection, providing hundreds of actions across
 						numerous occupations and activities, with more being added all the time.</p>
+				</div>
 
-					<div class="actions">
-						<button class="btn btn-banner btn-orange" type="button" data-action="upsell"
-							data-hook="business-style" data-hook-button-text="Preview Video Maker"
-							data-callback="showSignup();" title=""
-							data-original-title="Business Friendly Video Maker">
-							Make a Video <small>Sign up to try</small>
-						</button>
-						<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
-							data-hook-button-text="Preview Template" data-callback="showSignup();" title=""
-							data-original-title="Business Friendly Template"><i class="i-qvm-large"></i></button>
-						<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
-							data-hook-button-text="Preview Character Creator" data-callback="showSignup();" title=""
-							data-original-title="Business Friendly Character Creator"><i
-								class="i-cc-large"></i></button>
-					</div>
+				<div class="actions">
+					<button class="btn btn-banner btn-orange" type="button" data-action="upsell"
+						data-hook="business-style" data-hook-button-text="Preview Video Maker"
+						data-callback="showSignup();" title=""
+						data-original-title="Business Friendly Video Maker">
+						Make a Video <small>Sign up to try</small>
+					</button>
+					<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
+						data-hook-button-text="Preview Template" data-callback="showSignup();" title=""
+						data-original-title="Business Friendly Template"><i class="i-qvm-large"></i></button>
+					<button class="btn vm-bf-cc" type="button" data-action="upsell" data-hook="business-style"
+						data-hook-button-text="Preview Character Creator" data-callback="showSignup();" title=""
+						data-original-title="Business Friendly Character Creator"><i
+							class="i-cc-large"></i></button>
 				</div>
 			</div>
 		</div>
+		
+		<section class="page-breadcrumb">
+			<div class="container flex-container">
+				<a href="/">Home</a>
+				<div class="divider">></div>
+				<a href="/themelist">Themes</a>
+			</div>
+		</section>
 
 		<main>
 			<div class="container themes-section">
@@ -166,17 +166,15 @@
 
 				<div class="themes clearfix" id="themes">
 					<%- themelist.map(theme => `<div class="theme" id="thm-${theme.id}" data-tags="${theme.tags}">
-						<div class="theme-cell">
-							<div class="theme-cover launch">
-								<img src="/static/go/img/videomaker/themes/${theme.id}.jpg" alt="${theme.name}"/>
-							</div>
-							<div class="theme-meat">
-								<h3>${theme.name}</h3>
-								<div class="apps">
-									${(theme.features.vm) ? `<a class="btn btn-orange" href="/go/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
-									${(theme.features.template) ? `<a class="btn btn-icon" href="/videomaker/lite/${theme.id}" data-original-title="Template"><i class="i-qvm"></i></a>` : ""}
-									${(theme.features.cc) ? `<a class="btn btn-icon" href="/go/character_creator/${theme.cc_theme_id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
-								</div>
+						<div class="theme-cover launch">
+							<img src="/static/go/img/videomaker/themes/${theme.id}.jpg" alt="${theme.name}"/>
+						</div>
+						<div class="theme-meat">
+							<h3>${theme.name}</h3>
+							<div class="apps">
+								${(theme.features.vm) ? `<a class="btn btn-orange" href="/go/videomaker/full/${theme.id}" data-original-title="Video Maker">Make a Video</a>` : ""}
+								${(theme.features.template) ? `<a class="btn btn-icon" href="/videomaker/lite/${theme.id}" data-original-title="Template"><i class="i-qvm"></i></a>` : ""}
+								${(theme.features.cc) ? `<a class="btn btn-icon" href="/go/character_creator/${theme.cc_theme_id}" data-original-title="Character Creator"><i class="i-cc"></i></a>` : ""}
 							</div>
 						</div>
 					</div>`).join(""); %>

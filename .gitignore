@@ -1,6 +1,7 @@
 # goreanimate
 .env
 files/*
+*/characters/*
 
 
 # Logs

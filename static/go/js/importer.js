@@ -44,7 +44,7 @@ function showImporter() {
 				a.data("importer", new ImporterDegrade(a, b))
 			}
 		}
-		a.data("importer").show();
+		a.show();
 		var c = a.find(".ga-importer-share-panel");
 		if ((c.length > 0) && !c.data("importerShare")) {
 			c.data("importerShare", new ImporterShare(c, a))
