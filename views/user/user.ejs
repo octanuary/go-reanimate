@@ -26,24 +26,18 @@
 	<body>
 		<%- include("../includes/header", { user: user }); %>
 
+		<div class="profile-banner">
+			<img src="/files/user/<%= uinfo.id %>/banner" alt="banner"/>
+		</div>
+
 		<div class="profile-main">
 			<div class="container">
 				<img class="portrait" src="/files/user/<%= uinfo.id %>/picture" alt="">
 		
 				<div class="profile-main-content">
-					<h1><a href="/user/<%= uinfo.id %>" title="<%= uinfo.username %>"><%= uinfo.username %></a> </h1>
-		
-					<div class="views"><i class="stat-view"></i> 43,671</div>
-					<div class="joined">Joined: 29 Feb 3097</div>
+					<h1><%= uinfo.username %></h1>
 		
 					<div class="bio"><%= uinfo.bio %></div>
-		
-					<div class="profile-main-actions">
-						Share this page:&nbsp;
-						<a target="_blank" href="/shareUser/twitter<%= uinfo.id %>" onclick="_gaq.push(['_trackPageview', '/pageTracker/share/twitter/userhtml']);"><i class="ico-twitter"></i></a>
-					</div>
-		
-		
 				</div>
 			</div>
 		</div>
@@ -51,17 +45,27 @@
 		<section class="page-breadcrumb">
 			<div class="container flex-container">
 				<ul class="profile-main-nav">
-					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
-					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/favorites"><span class="icon fav"></span> <span class="num">572</span> Favorites</a></li>
-					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="icon follower"></span> <span class="num"><%= uinfo.followers.length %></span> Followers</a></li>
-					<li><a class="btn btn-blue" href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num"><%= uinfo.following.length %></span> Following</a></li>
+					<% if (uinfo.id != user?.id) { %>
+						<!-- you can't follow yourself -->
+						<li><div class="btn-group">
+							<a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="num"><%= uinfo.followers.length %></span> Followers</a>
+							<a class="btn btn-large btn-ico btn-blue" href="#" onclick="followUser">+</a>
+						</div></li>
+					<% } else { %>
+						<a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="num"><%= uinfo.followers.length %></span> Followers</a>
+					<% } %>
+					<li><a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num"><%= uinfo.following.length %></span> Following</a></li>
+					<li><a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
+					<% if (uinfo.following.find(v => v.following == user?.id)) { %>
+						This user follows you!
+					<% } %>
 				</ul>
 			</div>
 		</section>
 
 		<main>
 			<div class="container flex-container centered">
-
+				<h2>Recent Videos</h2>
 			</div>
 		</main>
 

@@ -6,10 +6,10 @@ const router = express.Router();
  * frontend
  */
 // choose a theme page
-router.get("/themelist", (req, res) => {
+router.get("/go/videomaker", (req, res) => {
 	if (!req.user) res.redirect("/login").end();
 
- 	res.render("app/themelist", { themelist: themelist, user: req.user });
+ 	res.render("app/videomaker", { themelist: themelist, user: req.user });
 });
 
 // character creator

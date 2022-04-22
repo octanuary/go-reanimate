@@ -110,6 +110,27 @@ a.important:focus,
 	font-size: 16px
 }
 
+
+/**
+button group
+**/
+.btn-group .btn:last-of-type {
+    border-radius: 0 5px 5px 0;
+}
+.btn-group .btn:first-of-type {
+    border-radius: 5px 0 0 5px;
+}
+.btn-group .btn {
+    margin-right: 0;
+}
+.btn-group {
+    display: inline-table;
+}
+
+.btn-large.btn-ico {
+	padding: 9px 15px;
+}
+
 .btn-red {
 	border-color: #7d2918;
 	background: #b82a1f;

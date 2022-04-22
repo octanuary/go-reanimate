@@ -45,7 +45,7 @@ module.exports = {
 	getUserByToken(token) {
 		return new Promise((resolve, rej) => {
 			// verify the token
-			jwt.verify(token, SECRET, function (err, decoded) {
+			jwt.verify(token, SECRET, (err, decoded) => {
 				if (err) rej();
 	
 				const connection = mysql.createConnection({
@@ -67,8 +67,8 @@ module.exports = {
 					Object.assign(res[0], {
 						password: password,
 						token: token,
-						followers: await this.follows("following", id),
-						following: await this.follows("follower", id)
+						followers: await this.follows("following", decoded.id),
+						following: await this.follows("follower", decoded.id)
 					});
 					resolve(res[0]);
 				});

@@ -1,23 +1,36 @@
 .profile-main {
-    background-color: #fff;
+    background-color: var(--background-secondary);
     box-shadow: 0 2px 4px #999;
-    padding: 35px 0;
+    padding: 15px 0;
+    height: 156px;
 }
 .profile-main .container {
     position: relative;
 }
 .profile-main-content {
     overflow: hidden;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 .profile-main h1 {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 600;
     line-height: 40px;
     margin-top: 0;
     margin-bottom: 5px;
 }
 
+/**
+banner
+**/
+.profile-banner {
+    background: #05705a;
+    height: 180px;
+}
+.profile-banner img {
+    height: 100%;
+    margin: auto;
+    display: block;
+}
 
 /**
 profile links (follows and stuff)
@@ -25,9 +38,6 @@ profile links (follows and stuff)
 .profile-main-nav {
     list-style-type: none;
     border-right: 1px solid #eee;
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 .profile-main-nav li {
     display: inline;
@@ -36,8 +46,21 @@ profile links (follows and stuff)
 
 
 .profile-main .bio {
-    margin: 30px 0;
+    margin: 10px 0 20px 0;
+    text-overflow: ellipsis;
+    height: 91px;
+    overflow: visible;
 }
+
+/**
+profile picture
+**/
 .profile-main .portrait {
     float: left;
+    position: relative;
+    top: -60px;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    box-shadow: 0 0 0 6px var(--background-secondary);
 }
