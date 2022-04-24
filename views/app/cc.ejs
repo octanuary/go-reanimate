@@ -65,7 +65,9 @@
 			};
 
 			studio_data.flashvars = {
-				"original_asset_id": "<%= charId %>",
+				<% if (typeof charId != "undefined") { %>
+					"original_asset_id": "<%= charId %>",
+				<% } %>
 				"apiserver": "\/",
 				"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
 				"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",

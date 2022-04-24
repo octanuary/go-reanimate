@@ -5,6 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const minifyHTML = require("express-minify-html");
 
 /**
@@ -27,7 +28,11 @@ app.use(minifyHTML({
 		minifyJS: true
 	}
 }));
-app.use(morgan("combined"));
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
+app.use(morgan("tiny"));
 app.use("/static", express.static("static"));
 app.use(require("./middlewares/extended"));
 app.use(require("./routes"));

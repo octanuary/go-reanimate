@@ -1,7 +1,9 @@
 # goreanimate
 .env
 files/*
-*/characters/*
+static/characters/*
+static/thumbnails/*
+static/store/*
 
 
 # Logs

@@ -35,30 +35,25 @@
 				<img class="portrait" src="/files/user/<%= uinfo.id %>/picture" alt="">
 		
 				<div class="profile-main-content">
-					<h1><%= uinfo.username %></h1>
+					<div class="profile-name">
+						<h1><%= uinfo.username %></h1>
+						<% if (uinfo.id != user?.id) { %>
+							<!-- you can't follow yourself -->
+							<a class="btn btn-large btn-orange" href="#" onclick="followUser">Follow</a>
+						<% } %>
+					</div>
 		
 					<div class="bio"><%= uinfo.bio %></div>
 				</div>
 			</div>
 		</div>
 
-		<section class="page-breadcrumb">
+		<section class="profile-stats">
 			<div class="container flex-container">
 				<ul class="profile-main-nav">
-					<% if (uinfo.id != user?.id) { %>
-						<!-- you can't follow yourself -->
-						<li><div class="btn-group">
-							<a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="num"><%= uinfo.followers.length %></span> Followers</a>
-							<a class="btn btn-large btn-ico btn-blue" href="#" onclick="followUser">+</a>
-						</div></li>
-					<% } else { %>
-						<a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="num"><%= uinfo.followers.length %></span> Followers</a>
-					<% } %>
+					<li><a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/followers"><span class="num"><%= uinfo.followers.length %></span> Followers</a></li>
 					<li><a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/following"><span class="icon following"></span> <span class="num"><%= uinfo.following.length %></span> Following</a></li>
 					<li><a class="btn btn-large btn-blue" href="/user/<%= uinfo.id %>/videos"><span class="icon video"></span> <span class="num">44</span> Videos</a></li>
-					<% if (uinfo.following.find(v => v.following == user?.id)) { %>
-						This user follows you!
-					<% } %>
 				</ul>
 			</div>
 		</section>

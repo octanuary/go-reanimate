@@ -26,17 +26,10 @@
 }
 
 .ga-importer {
-	position: absolute;
-	top: 0;
-	left: -100%;
 	background-color: #ccc;
-	width: 260px;
+	width: 360px;
 	height: 100%;
 	min-height: 640px
-}
-
-.ga-importer.show {
-	left: 0
 }
 
 .ga-importer-header {

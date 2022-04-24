@@ -34,6 +34,7 @@ function showImporter() {
 		var a = $(".ga-importer");
 		console.log(a);
 		if (!a.data("importer")) {
+			console.log("ok");
 			var b = false;
 			if ($("#studio_holder").length) {
 				b = studioApi($("#studio_holder"))
@@ -56,7 +57,7 @@ function showImporter() {
 
 function hideImporter() {
 	show_importer = false;
-	$(".ga-importer").data("importer").hide();
+	$(".ga-importer").hide();
 	ajust_studio()
 }
 
@@ -135,7 +136,7 @@ class Importer {
 		this.$el.find(".ga-importer-share").click(function (b) {
 			b.preventDefault();
 			a.shareMode(true)
-		}).tooltip();
+		});
 		this.$el.find(".hints > .glyph-circle-question_mark").hover(function () {
 			$(this).next(".tooltip").fadeIn()
 		}, function () {
@@ -144,12 +145,6 @@ class Importer {
 		if (this.studio) {
 			this.studio.bind("userAssetReady", $.proxy(this.onAssetReady, this)).bind("userAssetDelete", $.proxy(this.onAssetDelete, this)).bind("imageFrameSelect", $.proxy(this.onImageFrameSelect, this)).bind("imageFrameDeselect", $.proxy(this.onImageFrameDeselect, this))
 		}
-	};
-	show() {
-		this.$el.addClass("show")
-	};
-	hide() {
-		this.$el.removeClass("show")
 	};
 	clearList() {
 		this.$list.find(".imported, .canceled, .invalid").remove();
@@ -177,11 +172,13 @@ class Importer {
 		}
 	};
 	checkList() {
+		console.log("EEEEEEEEEE");
 		var c = !!this.$queue.find(".uploading").length;
 		var b = this.$queue.find(".pending");
 		if (!c && b.length > 0) {
 			var a = b.first().data("importerFile");
 			if (a.isValid()) {
+				console.log("when?")
 				this.uploadFile(a)
 			} else {
 				a.$el.appendTo(this.$list);
@@ -224,17 +221,11 @@ class Importer {
 		var b = new FormData();
 		b.append("file", c.file);
 		b.append("subtype", c.subtype);
+		console.log("e?")
 		c.xhr = $.ajax({
 			type: "POST",
-			url: "/ajax/saveUserProp",
+			url: "/api/v1/assets/import",
 			data: b,
-			xhr: function () {
-				_xhr = $.ajaxSettings.xhr();
-				if (_xhr.upload) {
-					_xhr.upload.addEventListener("progress", $.proxy(c.onProgress, c), false)
-				}
-				return _xhr
-			},
 			success: function (d) {
 				a.fileUploaded(c, d)
 			},
@@ -244,9 +235,11 @@ class Importer {
 		}).always(function () {
 			a.checkList()
 		})
+
+		console.log(c.xhr);
 	};
 	fileUploaded(b, a) {
-		if (a.suc) {
+		if (a.status == "ok") {
 			b.asset.id = a.id;
 			b.asset.encrypt_id = a.encrypt_id;
 			b.asset.type = a.asset_type;
@@ -259,18 +252,21 @@ class Importer {
 					b.$el.data("fileId", b.asset.data.file)
 				}
 			}
-			if (a.asset_type == "video") {
-				b.status("processing");
-				b.$el.appendTo(this.$list);
-				b.setIcon("loading");
-				if (this.studio) {
-					b.studio = this.studio
+
+			switch (a.asset_type) {
+				case "video": {
+					b.status("processing");
+					b.$el.appendTo(this.$list);
+					b.setIcon("loading");
+					if (this.studio) {
+						b.studio = this.studio
+					}
+					setTimeout(function () {
+						b.checkVideoStatus()
+					}, b.options.video_status_interval)
+					break;
 				}
-				setTimeout(function () {
-					b.checkVideoStatus()
-				}, b.options.video_status_interval)
-			} else {
-				if (a.asset_type == "font") {
+				case "font": {
 					b.status("processing");
 					b.$el.appendTo(this.$list);
 					b.setIcon("loading");
@@ -280,16 +276,22 @@ class Importer {
 					setTimeout(function () {
 						b.checkFontStatus()
 					}, b.options.font_status_interval)
-				} else {
+					break;
+				}
+				default: {
 					b.status("imported");
 					b.$el.appendTo(this.$list);
 					if (a.thumbnail) {
+						// add a preview image
 						b.asset.thumbnail = a.thumbnail;
 						b.setIcon(a.thumbnail)
 					} else {
+						// no image, use an icon
 						b.setIcon(a.asset_type)
 					}
 					if (this.studio) {
+						// why does it do this
+						// what
 						b.studio = this.studio;
 						this.studio.importerUploadComplete(b.asset)
 					}
@@ -634,6 +636,7 @@ ImporterDegrade.prototype = $.extend({}, Importer.prototype, {
 			a.$base_form[0].reset();
 			a.updateResults()
 		}).on("uploadReady", function (b) {
+			console.log("eeeeeeeeeeeeeeeeeeeeeeeeee");
 			var c = $(b.target).data("importerFile");
 			a.uploadFile(c)
 		}).on("clearFile", function () {

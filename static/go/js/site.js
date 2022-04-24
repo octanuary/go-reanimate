@@ -1,7 +1,7 @@
 /**
  * dropdowns
  */
-$(".dropdown-toggle").on("click", (event) => {
+$(document).on("click", ".dropdown-toggle", event => {
 	const clicked = $(event.target);
     const dropdown = clicked.siblings(".dropdown-menu");
 

@@ -33,8 +33,27 @@ banner
 }
 
 /**
-profile links (follows and stuff)
+name
 **/
+.profile-name {
+    display: -webkit-box;
+
+    h1 { margin-right: 10px }
+}
+
+/**
+profile stats (follows and stuff)
+**/
+.profile-stats {
+    background: var(--background-secondary);
+    border-bottom: var(--border-primary);
+
+    ul {
+        padding: 0;
+
+        .num { font-weight: 100 }
+    }
+}
 .profile-main-nav {
     list-style-type: none;
     border-right: 1px solid #eee;
@@ -62,5 +81,5 @@ profile picture
     height: 200px;
     width: 200px;
     border-radius: 100%;
-    box-shadow: 0 0 0 6px var(--background-secondary);
+    box-shadow: 0 0 0 4px var(--background-secondary);
 }

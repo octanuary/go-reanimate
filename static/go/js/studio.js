@@ -43,11 +43,8 @@ function ajust_studio() {
 	b += (show_worknote ? (worknote_expand ? 340 : 30) : 0);
 	b += (show_importer ? 260 : 0);
 	var e = Math.max(jQuery(window).width(), STUDIO_MIN_WIDTH + b);
-	jQuery("#studio_container").width(e);
-	jQuery("#studio_holder").width(e - b).toggleClass("offset", show_importer);
 	var a = jQuery(window).height() - (jQuery("div.header").length > 0 ? 80 : 0);
 	a = Math.max(a, STUDIO_MIN_HEIGHT);
-	jQuery("#studio_container").height(a);
 	if (jQuery("#studio_container .studio-worknote .worknotes-container").length > 0) {
 		var d = jQuery(document).height() - jQuery("#studio_container .studio-worknote .worknote-top-nav").outerHeight();
 		jQuery("#studio_container .studio-worknote.expand .worknotes-module").height(d);
