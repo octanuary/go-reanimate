@@ -85,26 +85,17 @@ async function createXML(type, subtype = 0, themeId) {
 	return response;
 }
 
-router.post("/goapi/getUserAssetsXml/", async (req, res) => {
-	if (!req.user) res.goError(`You must be logged in to perform this action.`);
-	req // check for missing fields
-		.assert(req.body.type, 400, "");
-
-	try {
-		const list = await createXML(req.body.type, req.body.subtype, req.body.themeId);
-		res.end(list);
-	} catch (err) {
-		if (process.env.NODE_ENV == "development") throw err;
-		res.end(`1${err}`);
-	}
-});
+/**
+ * api
+ */
+// listing
 router.post("/api_v2/assets/imported", async (req, res) => {
 	if (!req.user) res.goError(`You must be logged in to perform this action.`);
 	req // check for missing fields
 		.assert(req.body.data.type, 400, "", 1);
 
 	try {
-		const list = await createXML(req.body.data.type, req.body.data.subtype);
+		const list = await createXML(req.body.data.type, req.body.data.subtype, req.body.data?.themeId);
 		res.json({
 			status: "ok",
 			data: {
@@ -116,10 +107,7 @@ router.post("/api_v2/assets/imported", async (req, res) => {
 		res.end(`1${err}`);
 	}
 });
-
-/**
- * api
- */
+// asset uploading
 router.post("/api/v1/assets/import", async (req, res) => {
 	req // check for missing fields
 		.assert(req.files.file, 400, "NO. FILE. FUCK. YOU.", 1)

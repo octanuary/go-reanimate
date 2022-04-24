@@ -42,9 +42,8 @@ router.get("/go/character_creator/:tId/copy/:cId", (req, res) => {
 });
 
 // character browser
-router.get("/go/character_creator/:tId?", (req, res) => {
+router.get("/go/character_creator/:tId", (req, res) => {
 	if (!req.user) res.redirect("/login").end();
-	if (!req.params.tId) res.redirect("/themelist").end();
 
 	// validate the theme id
 	const themeId = (themelist.find(v => v.cc_theme_id == req.params.tId && v.features.cc)) ? req.params.tId : "family";
