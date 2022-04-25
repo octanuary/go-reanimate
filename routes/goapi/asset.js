@@ -18,14 +18,14 @@ async function createXML(type, subtype = 0, themeId) {
 			}
 			files = await Asset.list("char", 0, themeId);
 			response = `<ugc more="0">${files
-				.map(v => `<char id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" cc_theme_id="${v.themeId}" thumbnail_url="/files/asset/${v.id}/thumb" copyable="Y"><tags>${v.tags}</tags></char>`)
+				.map(v => `<char id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" cc_theme_id="${v.themeId}" thumbnail_url="/files/asset/${v.id}.png" copyable="Y"><tags>${v.tags}</tags></char>`)
 				.join("")}</ugc>`;
 			break;
 		}
 		case "bg": {
 			files = await Asset.list("bg", subtype);
 			response = `<ugc more="0">${files
-				.map(v => `<background subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" asset_url="/files/asset/${v.id}/file"/>`)
+				.map(v => `<background subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" asset_url="/files/asset/${v.id}"/>`)
 				.join("")}</ugc>`;
 			break;
 		}
@@ -45,7 +45,7 @@ async function createXML(type, subtype = 0, themeId) {
 			if (subtype == 0) {
 				files = await Asset.list("prop", subtype);
 				response = `<ugc more="0">${files
-					.map(v => `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" asset_url="/files/asset/${v.id}/file"/>`)
+					.map(v => `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" asset_url="/files/asset/${v.id}"/>`)
 					.join("")}</ugc>`;
 			} else {
 				files = await Asset.list("prop", "video");

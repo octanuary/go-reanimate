@@ -19,8 +19,8 @@ module.exports = {
 				if (err) rej(err);
 
 				// save the files
-				fs.writeFileSync(`${__dirname}/../files/asset/file/${id}`, body);
-				fs.writeFileSync(`${__dirname}/../files/asset/thumb/${id}`, thumbdata);
+				fs.writeFileSync(`${__dirname}/../files/asset/${id}.xml`, body);
+				fs.writeFileSync(`${__dirname}/../files/asset/${id}.png`, thumbdata);
 
 				resolve(id);
 			});
@@ -30,7 +30,7 @@ module.exports = {
 	load(aId) {
 		try {
 			try { // custom characters
-				return Buffer.from(fs.readFileSync(`${__dirname}/../files/asset/file/${aId}`));
+				return Buffer.from(fs.readFileSync(`${__dirname}/../files/asset/${aId}.png`));
 			} catch (err) { // stock characters
 				const nId = (aId.slice(0, -3) + "000").padStart(9, 0);
 				const chars = fs.readFileSync(`${__dirname}/../static/characters/${nId}.txt`);
@@ -39,11 +39,10 @@ module.exports = {
 					.toString("utf8")
 					.split("\n")
 					.find(v => v.substring(0, 3) == aId.slice(-3));
-				if (line) {
+				if (line)
 					return Buffer.from(line.substring(3));
-				} else {
+				else
 					throw "Character not found.";
-				}
 			}	
 		} catch (err) {
 			throw "Character not found."
