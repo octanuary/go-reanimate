@@ -2,7 +2,10 @@
 const fs = require("fs");
 const JSZip = require("jszip");
 const mysql = require("mysql");
+const path = require("path");
 const xmldoc = require("xmldoc");
+// vars
+const storeP = "../static/store/3a981f5cb2739137";
 // stuff
 const util = require("../helpers/util");
 
@@ -58,12 +61,12 @@ module.exports = {
 	 * @returns {Buffer}
 	 */
 	async parse(body) {
-		const zip = new JSZip();
-		zip.loadAsync(body, { base64: true });
+		const zip = await new JSZip().loadAsync(body);
 
 		// prepare stuff
 		let ugc = '<theme id="ugc" name="ugc">';
-		const film = new xmldoc.XmlDocument(await zip.file("movie.xml").async("string"));
+		const xml = await zip.file("movie.xml").async("string");
+		const film = new xmldoc.XmlDocument(xml);
 		const meta = film.childNamed("meta");
 
 		// start parsing the xml
@@ -74,10 +77,18 @@ module.exports = {
 					case "bg":
 					case "prop": {
 						const file = elem.childNamed("file")?.val;
+						if (!file) throw new Error("Invalid movie XML.");
+						const pieces = file.split(".");
 
-						console.log(file);
-						// check if it's undefined
-						if (!file) throw "Invalid movie XML."
+						// fix file name because the lvm fucks it up
+						const ext = pieces.pop();
+						pieces[pieces.length - 1] += "." + ext;
+						pieces.splice(1, 0, elem.name);
+						
+						const filepath = path.join(__dirname, storeP, pieces.join("/"));
+						const filename = pieces.join(".")
+
+						zip.file(filename, fs.readFileSync(filepath));
 					}
 				}
 			});
@@ -90,18 +101,21 @@ module.exports = {
 			zip: await zip.generateAsync({ type: "nodebuffer" }),
 			title: meta.childNamed("title").val,
 			description: meta.childNamed("desc").val,
-			duration: film.attr("duration").val,
+			duration: film.attr.duration,
 			tags: meta.childNamed("tag").val,
-			published: film.attr("published") == 1,
-			private: film.attr("pshare") == 1,
+			published: film.attr.published == 1,
+			private: film.attr.pshare == 1,
 		};
 	},
-	save(user, body, thumbdata) {
-		return new Promise((resolve, rej) => { 
-			const id = util.randStr();
+	save(user, body, thumbdata, id) {
+		return new Promise(async (resolve, rej) => { 
+			id ||= util.randStr();
+			// get the buffers from base64
+			body = Buffer.from(body, "base64");
 			thumbdata = Buffer.from(thumbdata, "base64");
 
-			const movie = this.parse(body);
+			// parse the movie, and get some metadata
+			const movie = await this.parse(body);
 			const share = movie.published ? "published" : movie.private ? "private" : "draft"
 
 			const connection = mysql.createConnection({
@@ -110,7 +124,7 @@ module.exports = {
 				password: process.env.SQL_PASS,
 				database: process.env.SQL_DB
 			});
-			const stmt = "INSERT INTO movie (id, creator_id, title, description, duration, tags, share, watermark) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			const stmt = "REPLACE INTO movie (id, creator_id, title, description, duration, tags, share, watermark) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			connection.query(stmt, [id, user.id, movie.title, movie.description, movie.duration, movie.tags, share, "0vTLbQy9hG7k"], (err, res, fields) => {
 				if (err) rej(err);
 

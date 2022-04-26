@@ -11,8 +11,8 @@ const fileUpload = require("express-fileupload");
  */
 app.set("views", "views");
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false, limit: "8mb" }));
+app.use(express.json({ limit: "8mb" }));
 app.use(require("cookie-parser")());
 app.use(fileUpload({
     useTempFiles : true,

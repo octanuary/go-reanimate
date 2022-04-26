@@ -39,8 +39,7 @@ module.exports = async function (req, res, next) {
 						.end();
 					break;
 				}
-			}				
-			return req;
+			}
 		}
 		return req;
 	};
