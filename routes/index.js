@@ -7,6 +7,7 @@ const router = express.Router();
 router.use("/", require("./goapi/index.js"));
 router.use("/", require("./files"));
 router.use("/", require("./preference"));
+router.use("/", require("./redirect"));
 router.use("/", require("./users"));
 
 module.exports = router;

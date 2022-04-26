@@ -4,6 +4,12 @@
 const User = require("../models/user");
 
 module.exports = async function (req, res, next) {
+	// log the request
+	console.log(`${req.url}`)
+
+	/**
+	 * error stuff
+	 */
 	res.goError = (message, code = "") => {
 		res
 			.status(403)
@@ -38,7 +44,11 @@ module.exports = async function (req, res, next) {
 		}
 		return req;
 	};
-	try { // user authentication
+
+	/**
+	 * user authentication
+	 */
+	try {
 		// it's in a try catch because without it req.user is undefined
 		const userData = await User.getUserByToken(req.cookies.utk);
 		req.user = userData;

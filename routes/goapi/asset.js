@@ -1,8 +1,12 @@
-const Asset = require("../../models/asset");
+// modules
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const JSZip = require("jszip");
+// stuff
+const Asset = require("../../models/asset");
 
-async function createXML(type, subtype = 0, themeId) {
+async function createXML(type, subtype = 0, themeId, share) {
 	var response, files;
 	switch (type) {
 		case "char": {
@@ -16,14 +20,14 @@ async function createXML(type, subtype = 0, themeId) {
 					break;
 				}
 			}
-			files = await Asset.list("char", 0, themeId);
+			files = await Asset.list("char", 0, themeId, share);
 			response = `<ugc more="0">${files
 				.map(v => `<char id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" cc_theme_id="${v.themeId}" thumbnail_url="/files/asset/${v.id}.png" copyable="Y"><tags>${v.tags}</tags></char>`)
 				.join("")}</ugc>`;
 			break;
 		}
 		case "bg": {
-			files = await Asset.list("bg", subtype);
+			files = await Asset.list("bg", subtype, share);
 			response = `<ugc more="0">${files
 				.map(v => `<background subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" asset_url="/files/asset/${v.id}"/>`)
 				.join("")}</ugc>`;
@@ -43,7 +47,7 @@ async function createXML(type, subtype = 0, themeId) {
 		}
 		case "prop": {
 			if (subtype == 0) {
-				files = await Asset.list("prop", subtype);
+				files = await Asset.list("prop", subtype, share);
 				response = `<ugc more="0">${files
 					.map(v => `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" asset_url="/files/asset/${v.id}"/>`)
 					.join("")}</ugc>`;
@@ -82,7 +86,7 @@ async function createXML(type, subtype = 0, themeId) {
 			break;
 		}
 	};
-	return response;
+	return { json: files, xml: response };
 }
 
 /**
@@ -95,11 +99,11 @@ router.post("/api_v2/assets/imported", async (req, res) => {
 		.assert(req.body.data.type, 400, "", 1);
 
 	try {
-		const list = await createXML(req.body.data.type, req.body.data.subtype, req.body.data?.themeId);
+		const list = await createXML(req.body.data.type, req.body.data.subtype);
 		res.json({
 			status: "ok",
 			data: {
-				xml: list
+				xml: list.xml
 			}
 		});
 	} catch (err) {
@@ -107,6 +111,51 @@ router.post("/api_v2/assets/imported", async (req, res) => {
 		res.end(`1${err}`);
 	}
 });
+// characters have to be fucking weird
+router.post("/goapi/getUserAssetsXml/", async (req, res) => {
+	if (!req.user) res.goError(`You must be logged in to perform this action.`);
+	req // check for missing fields
+		.assert(req.body.type, 400, "", 1);
+
+	try {
+		const list = await createXML(req.body.type, req.body.subtype, req.body.themeId);
+		res.end(list.xml);
+	} catch (err) {
+		if (process.env.NODE_ENV == "development") throw err;
+		res.end(`1${err}`);
+	}
+});
+// so does the community library
+router.post("/goapi/getCommunityAssets/", async (req, res) => {
+	req
+		.assert(req.user, 403, "You must be logged in to perform this action.", 2)
+		.assert(req.body.type, 400, "", 2);
+
+	try {
+		// still trying to get it to list assets
+		// it's hardcoded for now
+
+
+		// try to generate the xml first
+		const list = await createXML(req.body.type, req.body.subtype, req.body.themeId, "public");
+		const zip = new JSZip();
+
+		// add files to zip
+		zip.file("desc.xml", '<?xml version="1.0" encoding="utf-8"?><theme id="Comm" name="Community Library"></theme>');
+		console.log(list.xml);
+		const buffer =  await zip.generateAsync({ type: "nodebuffer" });
+
+		fs.writeFileSync("comm.zip", buffer);
+
+		res
+			.set("Content-Type", "application/zip")
+			.end("\0" + buffer);
+	} catch (err) {
+		if (process.env.NODE_ENV == "development") throw err;
+		res.end(`1${err}`);
+	}
+});
+
 // asset uploading
 router.post("/api/v1/assets/import", async (req, res) => {
 	req // check for missing fields
@@ -134,6 +183,5 @@ router.post("/api/v1/assets/import", async (req, res) => {
 		});
 	}
 });
-
 
 module.exports = router;

@@ -6,11 +6,18 @@ the themelist page
 banner
 **/
 .vm-bf {
-	background: #1a97ab url(../img/videomaker/makeavideo_back.jpg) no-repeat center 0;
+	// style
+	background: #1a97ab url(../../img/videomaker/makeavideo_back.jpg) no-repeat center 0;
 	color: #223c61;
+	// layout
+	text-align: center;
+	padding-bottom: 20px;
 	height: 379px;
 	width: 100%;
-	text-align: center
+}
+.theme-dark .vm-bf {
+    background-color: #1f1f1f;
+    background-blend-mode: soft-light;
 }
 .vm-bf h1 {
 	background: transparent url(/web/20131101014642im_/http://lightspeed.goanimate.com/static/446/go/img/videomaker/bar.png) no-repeat center 42px;
@@ -25,6 +32,10 @@ banner
 	font-size: 14px;
 	text-shadow: 0 2px 0 #7ee4f1;
 	text-transform: uppercase
+}
+.theme-dark .vm-bf .subtitle, .theme-dark .vm-bf-content p {
+    color: #7ee4f1;
+    text-shadow: 0 2px 0 #223c61;
 }
 .vm-bf-content {
     margin: auto;
@@ -51,13 +62,13 @@ banner
 themelist header
 **/
 .themes-section .header {
-	border-bottom: 3px solid #ccc;
+	border-bottom: 3px solid var(--border-secondary);
 	margin: 25px 0 20px 0;
 	padding: 0 0 10px 0;
 	position: relative
 }
 .themes-section .header h2 {
-	color: #222;
+	color: var(--color-secondary);
 	line-height: 20px;
 	font-size: 18px;
 	font-weight: normal;
