@@ -92,6 +92,24 @@ module.exports = {
 			connection.end();
 		});
 	},
+	meta(aId) {
+		return new Promise((resolve, rej) => {
+			const connection = mysql.createConnection({
+				host: process.env.SQL_HOST,
+				user: process.env.SQL_USER,
+				password: process.env.SQL_PASS,
+				database: process.env.SQL_DB
+			});
+			const stmt = `SELECT * FROM asset WHERE id = ?`;
+			connection.query(stmt, [aId], (err, res, fields) => {
+				if (err) rej(err);
+				if (res.length <= 0) rej;
+
+				resolve(res[0]);
+			});
+			connection.end();
+		});
+	},
 	load(aId) {
 		return new Promise((resolve, rej) => {
 			try {

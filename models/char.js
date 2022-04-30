@@ -1,5 +1,7 @@
+// modules
 const fs = require("fs");
 const mysql = require("mysql");
+// stuff
 const util = require("../helpers/util");
 
 module.exports = {
@@ -26,6 +28,15 @@ module.exports = {
 			});
 			connection.end();
 		});
+	},
+	theme(aId) {
+		const buffer = this.load(aId);
+
+		// get the theme id from the bodyshape component
+		const beg = buffer.indexOf("theme_id") + 10;
+		const end = buffer.indexOf('"', beg);
+
+		return buffer.slice(beg, end).toString();
 	},
 	load(aId) {
 		try {
