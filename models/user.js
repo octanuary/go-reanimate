@@ -23,6 +23,26 @@ module.exports = {
 		connection.end();
 		return token;
 	},
+	login(email, password) {
+		const token = jwt.sign({ email: email, password: password }, SECRET);
+
+		const connection = mysql.createConnection({
+			host: process.env.SQL_HOST,
+			user: process.env.SQL_USER,
+			password: process.env.SQL_PASS,
+			database: process.env.SQL_DB
+		});
+		const stmt = "SELECT * FROM user WHERE email = ?";
+		connection.query(stmt, [email], (err, res, fields) => {
+			if (err) throw err;
+			if (res.length == 0) throw "Invalid username/password.";
+
+			passDecypt = CryptoJS.AES.decrypt(res[0].password, SECRET);
+			if (passDecypt !== password) throw "Invalid username/password.";
+		});
+		connection.end();
+		return token;
+	},
 	follows(mode, id) {
 		// valid modes: following, follower
 		return new Promise((resolve, rej) => {

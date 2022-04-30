@@ -11,9 +11,6 @@
 		<link href="/static/go/css/site_responsive.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/signup.css" rel="stylesheet" type="text/css">
 
-		<script src="/static/go/js/go2.js"></script>
-		<script src="/static/go/js/site.js"></script>
-		<!-- JS LIBRARIES -->
 		<script src="/static/go/js/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/static/go/js/libs/Gettext.js"></script>
 		<script src="/static/go/po/goserver_js-en_US.js"></script>
@@ -25,13 +22,13 @@
 		</script>
 	</head>
 	<body>
-		<%- include("../includes/header", { user: user }); %>
+		<%- include("../includes/header", { user: null }); %>
 
 		<section class="page-breadcrumb">
 			<div class="container flex-container">
 				<a href="/">Home</a>
 				<div class="divider">></div>
-				<a href="/login">Login</a>
+				<a href="/signup">Login</a>
 			</div>
 		</section>
 
@@ -53,7 +50,11 @@
 						</div>
 
 						<div class="form-row">
-							<button class="btn btn-orange btn-xlarge" id="btn-signup" type="submit">LOGIN</button>
+							<a href="/forgot-password">Forgot password</a>.
+						</div>
+
+						<div class="form-row">
+							<button class="btn btn-orange btn-xlarge" id="btn-signup" type="submit">SIGN UP</button>
 
 							<input type="hidden" name="regsignup" value="1">
 							<input type="hidden" name="action" value="signup">
@@ -61,36 +62,9 @@
 						</div>
 
 						<div class="form-row">
-							No? <a href="/login">Login here</a>.
+							Not registered? <a href="/signup">Sign up here</a>.
 						</div>
 					</form>
-				</div>
-				<div class="reasons-to-signup">
-					<h2>Why Sign Up?</h2>
-					<ul>
-						<li>
-							<img src="/static/go/img/signup/make-videos.png" alt="Make videos" />
-							<div>
-								<h3>Create your own videos</h3>
-								<p>Create a video in a few clicks with the Quick Video Maker, or use the Full Video
-									Maker.</p>
-							</div>
-						</li>
-						<li>
-							<img src="/static/go/img/signup/custom-page.png" alt="Custom page" />
-							<div>
-								<h3>Customize your page</h3>
-								<p>Customize your page to the max with custom CSS.</p>
-							</div>
-						</li>
-						<li>
-							<img src="/static/go/img/signup/get-fans.png" alt="Get fans" />
-							<div>
-								<h3>Get GoBucks, views, and fans</h3>
-								<p>Share your content and earn GoBucks for your views, and get fans.</p>
-							</div>
-						</li>
-					</ul>
 				</div>
 			</div>
 		</main>
@@ -105,10 +79,7 @@
 				function validateSignUp() {
 					var email = $('#signup-email'),
 						email_val = $.trim(email.val()),
-						name = $('#signup-username'),
-						name_val = $.trim(name.val()),
-						password = $('#signup-password'),
-						confirm_password = $('#signup-confirm-password');
+						password = $('#signup-password');
 
 					formErrorMessage('');
 
@@ -124,11 +95,6 @@
 						formErrorMessage('Invalid email address');
 						return false;
 					}
-					if (!name_val || name_val == name.attr('placeholder')) {
-						name.focus();
-						formErrorMessage('Please enter your Display Name');
-						return false;
-					}
 					if (!password.val()) {
 						password.focus();
 						formErrorMessage('Password required');
@@ -137,16 +103,6 @@
 					if (password.val().length <= 3) {
 						password.focus();
 						formErrorMessage('Password must be longer than 3 characters');
-						return false;
-					}
-					if (!confirm_password.val()) {
-						confirm_password.focus();
-						formErrorMessage('Confirm password required');
-						return false;
-					}
-					if (password.val() != confirm_password.val()) {
-						confirm_password.val('').focus().addClass('error');
-						formErrorMessage('Password and Confirm Password do not match');
 						return false;
 					}
 
@@ -169,10 +125,8 @@
 
 					var buttonText = $('#btn-signup').text();
 					$('#btn-signup').text('Please wait...');
-					$.post("/api/v1/user/signup", $('#signup-form').serialize(), function (response) {
-						parseResponse(response);
-
-						if (responseArray.code == 0) {
+					$.post("/api/v1/user/login", $('#signup-form').serialize(), function (response) {
+						if (response.status == "ok") {
 							$(document).trigger('user.signup');
 						} else {
 							processing = false;
@@ -253,4 +207,6 @@
 			}
 		</script>
 	</body>
+	<script src="/static/go/js/go2.js"></script>
+	<script src="/static/go/js/site.js"></script>
 </html>

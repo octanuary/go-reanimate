@@ -1,5 +1,7 @@
+// modules
 const express = require("express");
 const router = express.Router();
+// stuff
 const User = require("../models/user");
 
 /**
@@ -14,15 +16,16 @@ router.get("/user/:uId", async (req, res) => {
 	}
 	res.render("user/user", { uinfo: user, user: req.user });
 });
-router.get("/signup", (req, res) => {
+router.get(["/signup", "/login"], (req, res) => {
 	if (req.user) res.redirect("/dashboard").end();
 
-	res.render("user/signup", {});
+	res.render(`user${req.url}`, {});
 });
 
 /**
  * api
  */
+// signup
 router.post("/api/v1/user/signup", (req, res) => {
 	req // check for missing fields
 		.assert(req.body.email, 400, "Please input an email.", 1)
@@ -36,6 +39,26 @@ router.post("/api/v1/user/signup", (req, res) => {
 	res // set a cookie that expires in 1 year
 		.cookie("utk", token, { path: "/", maxAge: 31557600000, httpOnly: true })
 		.json({ status: "ok" });
+});
+
+// login
+router.post("/api/v1/user/login", (req, res) => {
+	req // check for missing fields
+		.assert(req.body.email, 400, "Please input an email.", 1)
+		.assert(req.body.password1, 400, "Please input a password.", 1)
+		.assert(req.body.password1.length >= 3, 400, "Password is too short.", 1);
+
+	try {
+		const token = User.login(req.body.email, req.body.password1);
+		res // set a cookie that expires in 1 year
+			.cookie("utk", token, { path: "/", maxAge: 31557600000, httpOnly: true })
+			.json({ status: "ok" });
+	} catch (err) {
+		console.error(err);
+		res
+			.status(500)
+			.json({ status: "error", msg: "Internal server error."});
+	}
 });
 
 module.exports = router;

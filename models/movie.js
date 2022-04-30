@@ -5,8 +5,10 @@ const mysql = require("mysql");
 const path = require("path");
 const xmldoc = require("xmldoc");
 // vars
-const storeP = "../static/store/3a981f5cb2739137";
+const storeP = path.join(__dirname, "../static/store/3a981f5cb2739137");
+const header = process.env.XML_HEADER;
 // stuff
+const Char = require("./char");
 const util = require("../helpers/util");
 
 // gets the font filename from a font name
@@ -54,6 +56,11 @@ function name2Font(font) {
 	}
 }
 
+function addToThemelist(theme, themelist) {
+	if (!themelist.find(t => t == theme))
+		themelist.push(theme);
+}
+
 module.exports = {
 	/**
 	 * @summary Takes a base64 encoded blank movie zip, adds assets to it, and returns a new zip.
@@ -65,6 +72,7 @@ module.exports = {
 
 		// prepare stuff
 		let ugc = '<theme id="ugc" name="ugc">';
+		let themelist = ["common"];
 		const xml = await zip.file("movie.xml").async("string");
 		const film = new xmldoc.XmlDocument(xml);
 		const meta = film.childNamed("meta");
@@ -72,33 +80,82 @@ module.exports = {
 		// start parsing the xml
 		film.childrenNamed("scene").forEach(scene => {
 			// scenes
-			scene.eachChild(elem => {
+			scene.eachChild(async elem => {
 				switch (elem.name) {
 					case "bg":
 					case "prop": {
 						const file = elem.childNamed("file")?.val;
 						if (!file) throw new Error("Invalid movie XML.");
 						const pieces = file.split(".");
+						addToThemelist(pieces[0], themelist);
 
-						// fix file name because the lvm fucks it up
+						// fix the file name because the lvm fucks it up
 						const ext = pieces.pop();
 						pieces[pieces.length - 1] += "." + ext;
 						pieces.splice(1, 0, elem.name);
 						
-						const filepath = path.join(__dirname, storeP, pieces.join("/"));
-						const filename = pieces.join(".")
-
+						// add the file to the zip
+						const filepath = path.join(storeP, pieces.join("/"));
+						const filename = pieces.join(".");
 						zip.file(filename, fs.readFileSync(filepath));
+
+						break;
+					}
+					case "char": {
+						const file = elem.childNamed("action")?.val;
+						if (!file) throw new Error("Invalid movie XML.");
+						const pieces = file.split(".");
+						const themeId = pieces[0];
+						const id = pieces[1];
+
+						// fix the file name
+						// remove the action part (if it's a custom char)
+						if (themeId == "ugc") pieces.splice(2, 1);
+						// remove the extension from the array
+						const ext = pieces.pop();
+						pieces[pieces.length - 1] += "." + ext;
+						pieces.splice(1, 0, elem.name);
+
+						switch (themeId) {
+							case "ugc": {
+								console.log(pieces)
+
+								const filename = pieces.join(".");
+								console.log(filename);
+								
+
+								console.log("when??");
+								zip.file(filename, await Char.load(id));
+								break;
+							}
+							default: {
+								// we only need the filename in stock chars
+
+
+							}
+						}
+						break;
 					}
 				}
 			});
 		});
 
 		// add files to the zip
+		let themelXml = `${header}\n<themes>`;
+		themelist.forEach(theme => {
+			themelXml += `<theme>${theme}</theme>`;
+
+			// add the theme xml to the zip
+			const filepath = path.join(storeP, `${theme}/theme.xml`);
+			const filename = theme + ".xml";
+			zip.file(filename, fs.readFileSync(filepath));
+		});
+		themelXml += "</themes>";
+		zip.file("themelist.xml", Buffer.from(themelXml));
 		
 		// return the parsed zip + some metadata
 		return {
-			zip: await zip.generateAsync({ type: "nodebuffer" }),
+			zip: await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }),
 			title: meta.childNamed("title").val,
 			description: meta.childNamed("desc").val,
 			duration: film.attr.duration,
@@ -155,9 +212,10 @@ module.exports = {
 			});
 			connection.end();
 
-			return Buffer.from(fs.readFileSync(`${__dirname}/../files/movie/${mId}.zip`));
+			return Buffer.from(fs.readFileSync(`${__dirname}/../files/movie/file/${mId}.zip`));
 		} catch (err) {
-			throw "Character not found."
+			console.log(err);
+			throw new Error("Movie not found.");
 		}
 	}
 }

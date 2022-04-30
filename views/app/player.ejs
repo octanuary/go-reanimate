@@ -1,0 +1,103 @@
+<html class="theme-light" lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta property="og:site_name" content="GoAnimate">
+		<title>Video Maker | GoAnimate</title>
+		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
+
+		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/app/studio.css" rel="stylesheet" type="text/css">
+		
+		<script src="/static/go/js/libs/jquery/jquery-1.11.0.min.js"></script>
+		<script src="/static/go/js/libs/jquery/jquery.swfobject.min.js"></script>
+		<script src="/static/go/js/libs/jquery/jquery.tmpl.min.js"></script>
+		<script src="/static/go/js/libs/Gettext.js"></script>
+		<script src="/static/go/po/goserver_js-en_US.js"></script>
+		<script> // set up gettext
+			var I18N_LANG = "en_US";
+			var GT = new Gettext({
+				"locale_data": json_locale_data
+			});
+		</script>
+	</head>
+	<body class="en_US has-user full_screen_studio studio-locked">
+		<div class="page-container">
+
+			<script>
+
+				var hideHTMLBox = function () {
+					window.close();
+				};
+
+				function tutorialStarted() {}
+
+				function tutorialStep(sn) {}
+
+				function tutorialCompleted() {
+					$.ajax({
+						type: 'POST',
+						url: '/ajax/tutorialStatus/completed'
+					});
+				}
+
+				var enable_full_screen = true;
+
+				var studio_data = {
+					id: "Studio",
+					swf: "/static/animation/414827163ad4eb60/player.swf",
+					width: "100%",
+					height: "100%",
+
+					align: "middle",
+					allowScriptAccess: "always",
+					allowFullScreen: "true",
+					wmode: "window",
+
+					hasVersion: "10.3"
+				};
+
+				if (!enable_full_screen) {
+					studio_data.width = 960;
+					studio_data.height = 630;
+					resize_studio = false;
+				}
+
+				studio_data.flashvars = {
+					"movieId": "<%= movieId %>",
+					"apiserver": "\/",
+					"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
+					"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",
+					"ut": 60,
+					"lid": "0",
+					"ctc": "go",
+					"tlang": "en_US",
+					"siteId": "go",
+					"appCode": "go",
+					"lang": "en",
+					"isWide": 1,
+					"thumbnailUrl": "/files/movie/<%= movieId %>/thumbnail",
+				};
+
+				function proceedWithFullscreenStudio() {
+					$('#studio_holder').flash(studio_data);
+					full_screen_studio();
+
+					ajust_studio();
+				}
+
+
+				$(document).ready(function () {
+						$('#studio_container').show()
+
+							proceedWithFullscreenStudio();
+					})
+
+			</script>
+
+			<main id="studio_container">
+				<div id="studio_holder"></div>
+			</main>
+		</div>
+	</body>
+</html>

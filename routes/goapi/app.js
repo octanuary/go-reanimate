@@ -79,4 +79,14 @@ router.get("/go/videomaker/lite/:tId/", (req, res) => {
 	});
 });
 
+// player
+router.get("/movie/:mId?", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+
+ 	res.render("app/player", {
+		movieId: req.params.mId || "",
+		user: req.user
+	});
+});
+
 module.exports = router;

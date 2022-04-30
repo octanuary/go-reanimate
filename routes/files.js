@@ -19,6 +19,16 @@ router.get("/files/:type/:aId/", async (req, res) => {
 		console.log(err);
 		res.end();
 	}
-})
+});
+router.get("/files/:type/:aId/:file", async (req, res) => {
+	try {
+			const buffer = fs.readFileSync(`${__dirname}/../files/${req.params.type}/${req.params.file}/${req.params.aId}`);
+			res.send(buffer);
+		
+	} catch (err) {
+		console.log(err);
+		res.end();
+	}
+});
 
 module.exports = router;
