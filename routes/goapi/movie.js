@@ -27,19 +27,17 @@ router.post("/goapi/saveMovie", async (req, res) => {
 	}
 });
 router.post("/goapi/getMovie/", async (req, res) => {
-	req
-		.assert(req.user, 400, "You must be logged in to perform this action.", 2)
-		.assert(req.query.movieId, 400, "No movie ID provided.", 2);
+	req.assert(req.query.movieId, 400, "No movie ID provided.", 2);
 	if (!req.isValid) return;
 
 	let buffer;
-
 	try {
-		buffer = await Movie.load(req.user, req.body.movieId);
+		buffer = await Movie.load(req?.user, req.body.movieId);
 		res
 			.set("Content-Type", "application/zip")
 			.send(Buffer.concat([nullBuff, buffer]));
 	} catch (err) {
+		console.log(err, "err");
 		res.end(`1${err}`)
 	}
 });

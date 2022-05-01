@@ -1,10 +1,15 @@
 /** 
- * GoAniverse
+ * Go!ReAnimate
  */
-require("dotenv").config();
+
+// modules
 const express = require("express");
 const app = express();
 const fileUpload = require("express-fileupload");
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+// vars
+require("dotenv").config();
 
 /**
  * middlewares
@@ -22,4 +27,12 @@ app.use("/static", express.static("static"));
 app.use(require("./middlewares/extended"));
 app.use(require("./routes"));
 
-app.listen(4343, () => console.log("GoReanimate is running."));
+io.on('connection', () =>{
+    console.log('a user is connected')
+  })
+
+app.use((req, res, next) => {
+    io.emit('message', "whende");
+    next();
+})
+http.listen(4343, () => console.log("Go!ReAnimate"));

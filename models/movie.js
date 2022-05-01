@@ -263,7 +263,7 @@ module.exports = {
 			connection.end();
 		});
 	},
-	load(user, mId) {
+	async load(user, mId) {
 		try {
 			const connection = mysql.createConnection({
 				host: process.env.SQL_HOST,
@@ -272,12 +272,12 @@ module.exports = {
 				database: process.env.SQL_DB
 			});
 			const stmt = "SELECT * FROM movie WHERE id = ?";
-			connection.query(stmt, [mId], (err, res, fields) => {
+			connection.query(stmt, [mId], async (err, res, fields) => {
 				if (err) throw err;
 				if (res.length == 0) throw "Movie not found.";
 
 				// filter columns
-				if (res[0].creator_id !== user.id && res[0].share !== "public") throw "This movie does not belong to you.";
+				if (res[0].creator_id !== user?.id && res[0].share !== "public") throw "This movie does not belong to you.";
 			});
 			connection.end();
 

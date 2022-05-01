@@ -7,8 +7,9 @@
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
 		<link href="/static/go/css/style.css" rel="stylesheet" type="text/css">
-		<link href="/static/go/css/app/studio.css" rel="stylesheet" type="text/css">
+		<link href="/static/go/css/app/movie.css" rel="stylesheet" type="text/css">
 		
+		<script src="/socket.io/socket.io.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery-1.11.0.min.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery.swfobject.min.js"></script>
 		<script src="/static/go/js/libs/jquery/jquery.tmpl.min.js"></script>
@@ -22,83 +23,58 @@
 		</script>
 	</head>
 	<body class="en_US has-user full_screen_studio studio-locked">
-		<div class="page-container">
+		<%- include("../includes/header", { user: user }); %>
 
-			<script>
+		<main>
+			<div class="container">	
+				<div id="movie-container" class="flex-container">
+					<div id="player_holder"></div>
+					<div>
+						<h1><%= movie.title %></h1>
 
-				var hideHTMLBox = function () {
-					window.close();
-				};
-
-				function tutorialStarted() {}
-
-				function tutorialStep(sn) {}
-
-				function tutorialCompleted() {
-					$.ajax({
-						type: 'POST',
-						url: '/ajax/tutorialStatus/completed'
-					});
-				}
-
-				var enable_full_screen = true;
-
-				var studio_data = {
-					id: "Studio",
-					swf: "/static/animation/414827163ad4eb60/player.swf",
-					width: "100%",
-					height: "100%",
-
-					align: "middle",
-					allowScriptAccess: "always",
-					allowFullScreen: "true",
-					wmode: "window",
-
-					hasVersion: "10.3"
-				};
-
-				if (!enable_full_screen) {
-					studio_data.width = 960;
-					studio_data.height = 630;
-					resize_studio = false;
-				}
-
-				studio_data.flashvars = {
-					"movieId": "<%= movie.id %>",
-					"apiserver": "\/",
-					"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
-					"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",
-					"autostart": 1,
-					"ut": 60,
-					"lid": "0",
-					"ctc": "go",
-					"tlang": "en_US",
-					"siteId": "go",
-					"appCode": "go",
-					"lang": "en",
-					"isWide": 1,
-					"thumbnailUrl": "https://go.octanuary.tk/files/movie/<%= movie.id %>/thumbnail",
-				};
-
-				function proceedWithFullscreenStudio() {
-					$('#studio_holder').flash(studio_data);
-					full_screen_studio();
-
-					ajust_studio();
-				}
-
-
-				$(document).ready(function () {
-						$('#studio_container').show()
-
-							proceedWithFullscreenStudio();
-					})
-
-			</script>
-
-			<main id="studio_container">
-				<div id="studio_holder"></div>
-			</main>
-		</div>
+					</div>
+				</div>
+			</div>
+		</main>
 	</body>
+	<script src="/static/go/js/go2.js"></script>
+	<script src="/static/go/js/site.js"></script>
+	<script>
+		var socket = io();
+
+socket.on("message", () => console.log("ok"));
+
+		var studio_data = {
+			id: "Studio",
+			swf: "/static/animation/414827163ad4eb60/player.swf",
+			width: "100%",
+			height: "100%",
+
+			align: "middle",
+			allowScriptAccess: "always",
+			allowFullScreen: "true",
+			wmode: "window",
+
+			hasVersion: "10.3"
+		};
+		studio_data.flashvars = {
+			"movieId": "<%= movie.id %>",
+			"apiserver": "\/",
+			"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
+			"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",
+			"autostart": 1,
+			"ut": 60,
+			"lid": "0",
+			"ctc": "go",
+			"tlang": "en_US",
+			"siteId": "go",
+			"appCode": "go",
+			"lang": "en",
+			"isWide": 1,
+			"isEmbed": 1,
+			"thumbnailUrl": "https://go.octanuary.tk/files/movie/<%= movie.id %>/thumbnail",
+		};
+
+		$("#player_holder").flash(studio_data);
+	</script>
 </html>

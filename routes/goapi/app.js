@@ -84,8 +84,6 @@ router.get("/go/videomaker/lite/:tId/", (req, res) => {
 
 // player
 router.get("/movie/:mId", async (req, res) => {
-	if (!req.user) res.redirect("/login").end();
-
 	try {
 		const movie = await Movie.meta(req.params.mId);
 
@@ -101,8 +99,6 @@ router.get("/movie/:mId", async (req, res) => {
 });
 // embed player
 router.get("/movie/embed/:mId", (req, res) => {
-	if (!req.user) res.redirect("/login").end();
-
  	res.render("app/playerEmbed", {
 		movieId: req.params.mId || "",
 		user: req.user
