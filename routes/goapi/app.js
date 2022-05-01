@@ -1,6 +1,10 @@
-const themelist = require("../../themelist.json");
+// modules
 const express = require("express");
 const router = express.Router();
+// vars
+const themelist = require("../../themelist.json");
+// stuff
+const Movie = require("../../models/movie");
 
 /**
  * frontend
@@ -66,7 +70,6 @@ router.get("/go/videomaker/full/:tId?/:mId?", (req, res) => {
 		user: req.user
 	});
 });
-
 // quick videomaker
 router.get("/go/videomaker/lite/:tId/", (req, res) => {
 	if (!req.user) res.redirect("/login").end();
@@ -80,10 +83,27 @@ router.get("/go/videomaker/lite/:tId/", (req, res) => {
 });
 
 // player
-router.get("/movie/:mId?", (req, res) => {
+router.get("/movie/:mId", async (req, res) => {
 	if (!req.user) res.redirect("/login").end();
 
- 	res.render("app/player", {
+	try {
+		const movie = await Movie.meta(req.params.mId);
+
+
+		console.log(movie);
+		res.render("app/player", {
+			movie: movie,
+			user: req.user
+		});
+	} catch (err) {
+		res.redirect("/movie");
+	}
+});
+// embed player
+router.get("/movie/embed/:mId", (req, res) => {
+	if (!req.user) res.redirect("/login").end();
+
+ 	res.render("app/playerEmbed", {
 		movieId: req.params.mId || "",
 		user: req.user
 	});

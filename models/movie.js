@@ -61,7 +61,7 @@ async function meta2Xml(v) {
 	var xml;
 	switch (v.type) {
 		case "char": {
-			xml = `<char id="${v.id}" enc_asset_id="${v.id}" name="Untitled" cc_theme_id="${v.themeId}" thumbnail_url="/files/asset/${v.id}.png" copyable="Y"><tags/></char>`;
+			xml = `<char id="${v.id}" enc_asset_id="${v.id}" name="Untitled" cc_theme_id="${v.themeId}" thumbnail_url="/files/asset/${v.id}.png" copyable="Y"><tags></tags></char>`;
 			break;
 		}
 		case "bg": {
@@ -87,7 +87,7 @@ async function meta2Xml(v) {
 	return xml;
 }
 
-function addToThemelist(theme, themelist) {
+const addToThemelist = (theme, themelist) => {
 	if (!themelist.find(t => t == theme))
 		themelist.push(theme);
 }
@@ -244,6 +244,25 @@ module.exports = {
 			connection.end();
 		});
 	},
+	meta(mId) {
+		return new Promise((resolve, rej) => {
+			const connection = mysql.createConnection({
+				host: process.env.SQL_HOST,
+				user: process.env.SQL_USER,
+				password: process.env.SQL_PASS,
+				database: process.env.SQL_DB
+			});
+			const stmt = `SELECT * FROM movie WHERE id = ?`;
+			connection.query(stmt, [mId], (err, res, fields) => {
+				if (err) rej(err);
+				console.log(res.length, "len");
+				if (res.length <= 0) rej("Movie not found.");
+
+				resolve(res[0]);
+			});
+			connection.end();
+		});
+	},
 	load(user, mId) {
 		try {
 			const connection = mysql.createConnection({
@@ -264,7 +283,7 @@ module.exports = {
 
 			return Buffer.from(fs.readFileSync(`${__dirname}/../files/movie/file/${mId}.zip`));
 		} catch (err) {
-			console.log(err);
+			//console.log(err);
 			throw new Error("Movie not found.");
 		}
 	}

@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta property="og:site_name" content="GoAnimate">
-		<title><%= movie.title %> | GoAnimate</title>
+		<title>Video Embed | GoAnimate</title>
 		<meta name="description" content="Make a video online for free with GoAnimate! Make videos for YouTube, create educational videos, make animated e-cards and more!">
 
 		<link href="/static/go/css/site.css" rel="stylesheet" type="text/css">
@@ -64,7 +64,7 @@
 				}
 
 				studio_data.flashvars = {
-					"movieId": "<%= movie.id %>",
+					"movieId": "<%= movieId %>",
 					"apiserver": "\/",
 					"storePath": "\/static\/store\/3a981f5cb2739137\/<store>",
 					"clientThemePath": "\/static\/ad44370a650793d9\/<client_theme>",
@@ -77,7 +77,7 @@
 					"appCode": "go",
 					"lang": "en",
 					"isWide": 1,
-					"thumbnailUrl": "https://go.octanuary.tk/files/movie/<%= movie.id %>/thumbnail",
+					"thumbnailUrl": "https://go.octanuary.tk/files/movie/<%= movieId %>/thumbnail",
 				};
 
 				function proceedWithFullscreenStudio() {

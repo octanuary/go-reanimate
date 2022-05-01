@@ -10,10 +10,11 @@ module.exports = async function (req, res, next) {
 	/**
 	 * error stuff
 	 */
+	req.isValid = true;
 	res.goError = (message, code = "") => {
 		res
 			.status(403)
-			.end(`1<error><code>${code}</code><message>${message}</message><text></text></error>`);
+			.send(`1<error><code>${code}</code><message>${message}</message><text></text></error>`);
 		return res;
 	};
 	req.assert = (required, sCode, msg, m = 0) => {
@@ -40,6 +41,7 @@ module.exports = async function (req, res, next) {
 					break;
 				}
 			}
+			req.isValid = false;
 		}
 		return req;
 	};
